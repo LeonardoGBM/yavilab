@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.component';
 
 
 
@@ -10,7 +11,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     CommonModule,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    LaboratoriosComponent
   ]
   
 })
