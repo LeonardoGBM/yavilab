@@ -5,7 +5,7 @@ import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.compone
 
 export const routes: Routes = [
     { path: '', component: LoginComponent},
-    { path:'dashboard', component: DashboardComponent},
-    { path: 'laboratorios', component: LaboratoriosComponent}
+    { path: 'dashboard', component: DashboardComponent},
+    { path: 'lab', component: LaboratoriosComponent}
 ];
 
