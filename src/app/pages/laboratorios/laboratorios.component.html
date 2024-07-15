@@ -1,1 +1,103 @@
-<p>laboratorios works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-md-9">
+            <div class="col-md-9 pt-5 pb-5">
+                <h1><b> Laboratorios</b></h1>
+            </div>
+            <div class="col-md-11 mb-5">
+                <hr style="width: 100%;">
+            </div>
+            <div class="col-md-11 pt-5 pb-5 d-flex justify-content-between rounded-4"
+                style="background-color: rgba(128, 128, 128, 0.245);">
+                <div>
+                    <label for="Filtros">Filtros</label>
+                    <input type="text" placeholder="Filtros" style="width: 300px; height: 24px; margin-left: 15px;">
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary"><i class="bi bi-plus-square-fill pr-4"
+                            style="padding-right: 10px;"></i>Agregar</button>
+                </div>
+            </div>
+            <div class="col-md-11 mt-5 rounded-4" style="background-color: rgba(128, 128, 128, 0.245);">
+                <table class="table table-hover table-white mt-4 mb-0">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Monitores</th>
+                            <th scope="col">CPU</th>
+                            <th scope="col">Teclado</th>
+                            <th scope="col">Audifonos</th>
+                            <th scope="col">Infocus</th>
+                            <th scope="col">Mouse</th>
+                            <th scope="col">Sillas</th>
+                            <th scope="col">Mesas</th>
+                            <th scope="col">Observaciones</th>
+                            <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Xian</td>
+                            <td>LG</td>
+                            <td>Dell</td>
+                            <td>Marvo</td>
+                            <td>LG</td>
+                            <td>HP</td>
+                            <td>Logitech</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>Mark</td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
+                                    style="margin-right: 10px; color: blue;"></i>
+                                <i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Xian</td>
+                            <td>LG</td>
+                            <td>Dell</td>
+                            <td>Marvo</td>
+                            <td>LG</td>
+                            <td>HP</td>
+                            <td>Logitech</td>
+                            <td>3</td>
+                            <td>3</td>
+                            <td>Mark</td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
+                                    style="margin-right: 10px; color: blue;"></i>
+                                <i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-md-12 d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
