@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.component';
-import { SidebarComponent } from './layout/sidebar/sidebar.component';
-import { EquiposComponent } from './pages/equipos/equipos.component';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -14,9 +12,7 @@ import { EquiposComponent } from './pages/equipos/equipos.component';
     CommonModule,
     LoginComponent,
     DashboardComponent,
-    LaboratoriosComponent,
-    SidebarComponent,
-    EquiposComponent
+    RegisterComponent
   ]
   
 })
