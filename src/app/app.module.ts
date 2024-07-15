@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.component';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { EquiposComponent } from './pages/equipos/equipos.component';
 
 
 
@@ -14,7 +15,8 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
     LoginComponent,
     DashboardComponent,
     LaboratoriosComponent,
-    SidebarComponent
+    SidebarComponent,
+    EquiposComponent
   ]
   
 })

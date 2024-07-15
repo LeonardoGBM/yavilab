@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { SidebarComponent } from '../../layout/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-equipos',
   standalone: true,
-  imports: [],
+  imports: [SidebarComponent],
   templateUrl: './equipos.component.html',
   styleUrl: './equipos.component.css'
 })
