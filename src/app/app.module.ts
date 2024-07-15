@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
 
 
 
@@ -12,7 +13,8 @@ import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.compone
     CommonModule,
     LoginComponent,
     DashboardComponent,
-    LaboratoriosComponent
+    LaboratoriosComponent,
+    SidebarComponent
   ]
   
 })
