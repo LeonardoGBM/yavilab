@@ -37,4 +37,16 @@
     border-bottom-left-radius: 0;
   }
   
-  
+
+input::placeholder {
+  color:rgb(175, 175, 175);
+}
+
+
+
+
+
+
+
+
+
