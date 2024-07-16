@@ -17,6 +17,26 @@
     z-index: 1;
 }
 
+.input-group-append .input-group-text {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.input-group-append .input-group-text .bi {
+    font-size: 1.8rem;
+}
+
+.input-group .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group .input-group-append .input-group-text {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
 input::placeholder {
-    color:rgb(175, 175, 175);
-  }
+    color: rgb(175, 175, 175);
+}
