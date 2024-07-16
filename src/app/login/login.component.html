@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 d-flex justify-content-center align-items-center">
-        <div class="p-5 border rounded-5" style="background:rgba(76, 152, 244, 0.856);">
+        <div class="p-5 rounded-5" style="background:rgba(76, 152, 244, 0.856);">
           <form>
             <!-- Imagen de avatar -->
             <div class="d-flex justify-content-center mb-4">
@@ -13,18 +13,18 @@
             <div class="col-md-12 d-flex justify-content-center mb-5">
               <h1 style="color: white;">Bienvenido a YAVILAB</h1>
             </div>
-            <div class="form-group pt-5">
-              <label for="email" style="font-size: 15px; color: rgb(255, 240, 252);"><b>Correo:</b></label>
-              <input type="email" name="email" class="form-control border rounded-4" id="email"
+            <div class="form-group pt-4">
+              <label for="email" style="font-size: 13px; color: white;">Correo:</label>
+              <input type="email" name="email" class="form-control border rounded-1" id="email"
                 placeholder="Ingrese el correo electrónico"
-                style="font-family: 'Monospace', monospace; border-left: 0; border-right: 0; border-top: 0; border-bottom: 2px solid white; background-color: rgba(85, 103, 244, 0.401)">
+                style="font-size: 12px; font-family: Verdana; background-color: white">
             </div>
             <div class="form-group">
-              <label for="contrasena" style="font-size: 15px; color: aliceblue;"><b>Contraseña:</b></label>
+              <label for="contrasena" style="font-size: 13px; color: white;">Contraseña:</label>
               <div class="input-group">
-                <input type="password" name="contrasena" class="form-control border rounded-4" id="contrasena"
+                <input type="password" name="contrasena" class="form-control border rounded-1" id="contrasena"
                   placeholder="Ingrese la contraseña"
-                  style="font-family: 'Monospace', monospace; border-left: 0; border-right: 0; border-top: 0; border-bottom: 2px solid white; background-color: rgba(85, 103, 244, 0.401)">
+                  style="font-size: 12px; font-family: Verdana; background-color: white">
                 <div class="input-group-append">
                   <span class="input-group-text" id="togglePassword" (click)="togglePasswordVisibility()">
                     <i class="bi bi-eye" id="toggleEye"></i>
@@ -33,11 +33,13 @@
               </div>
             </div>
             <div class="d-flex justify-content-center pt-4">
-              <button type="button" class="btn btn-primary" style="width: 250px; border-radius: 10px;">Iniciar
+              <button type="button" class="btn btn-primary"
+                style="width: 250px; font-size: 120%; padding: 5px; border-radius: 5px;">Iniciar
                 Sesión</button>
             </div>
             <div class="d-flex justify-content-center pt-4">
-              <button type="button" class="btn btn-primary" style="width: 250px; border-radius: 10px;"
+              <button type="button" class="btn btn-primary"
+                style="width: 250px; font-size: 120%; padding: 5px; border-radius: 5px;"
                 (click)="redirectToRegister()">Registrarse</button>
             </div>
           </form>
@@ -46,4 +48,3 @@
     </div>
   </div>
 </div>
-
