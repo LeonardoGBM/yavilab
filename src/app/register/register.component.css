@@ -40,3 +40,23 @@
 input::placeholder {
     color: rgb(175, 175, 175);
 }
+
+
+
+.icono {
+    color: rgb(0, 0, 0);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+   font-size: 20px;
+  }
+  
+  .contenedor1 {
+    position: relative;
+  }
+  
+  .contenedor1 .form-control {
+    padding-right: 30px;
+  }
