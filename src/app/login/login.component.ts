@@ -22,7 +22,7 @@ export class LoginComponent {
     this.showPassword = !this.showPassword;
     const passwordInput = document.getElementById('contrasena') as HTMLInputElement;
     const toggleEye = document.getElementById('toggleEye') as HTMLElement;
-    
+
     if (this.showPassword) {
       passwordInput.type = 'text';
       toggleEye.classList.remove('bi-eye');
@@ -33,5 +33,9 @@ export class LoginComponent {
       toggleEye.classList.add('bi-eye');
     }
   }
-}
 
+  login() {
+    // Aquí puedes agregar la lógica de autenticación
+    this.router.navigate(['dashboard']);
+  }
+}
