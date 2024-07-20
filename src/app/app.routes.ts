@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.component';
 import { EquiposComponent } from './pages/equipos/equipos.component';
 import { RegisterComponent } from './register/register.component';
+import { ErroresComponent } from './pages/errores/errores.component';
 
 export const routes: Routes = [
     { path: '', component: LoginComponent},
