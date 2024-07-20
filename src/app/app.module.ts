@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
+import { ErroresComponent } from './pages/errores/errores.component';
 
 
 
@@ -12,7 +13,8 @@ import { RegisterComponent } from './register/register.component';
     CommonModule,
     LoginComponent,
     DashboardComponent,
-    RegisterComponent
+    RegisterComponent,
+    ErroresComponent
   ]
   
 })
