@@ -1,8 +1,7 @@
 #sidebar {
-    width: 300px;
+    max-width: 250px;
+    margin-left: -12px;
     height: 100vh;
-    background-color: #343a40;
-    color: white;
 }
 #sidebar .nav-link {
     color: white;
