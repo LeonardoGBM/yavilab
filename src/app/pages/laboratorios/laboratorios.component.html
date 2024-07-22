@@ -4,25 +4,24 @@
             <app-sidebar></app-sidebar>
         </div>
         <div class="col-md-9">
-            <div class="col-md-9 pt-5 pb-5">
-                <h1><b> Laboratorios</b></h1>
+            <div class="col-md-9 pt-5 pb-2">
+                <h2><b> Laboratorios</b></h2>
             </div>
             <div class="col-md-11 mb-5">
                 <hr style="width: 100%;">
             </div>
-            <div class="col-md-11 pt-5 pb-5 d-flex justify-content-between rounded-4"
+            <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4"
                 style="background-color: rgba(128, 128, 128, 0.245);">
                 <div>
-                    <label for="Filtros">Filtros</label>
-                    <input type="text" placeholder="Filtros" style="width: 300px; height: 24px; margin-left: 15px;">
+                    <label for="Filtros" style="margin-left: 50px;">Filtros</label>
+                    <input type="text" placeholder="Filtros" style="width: 300px; height: 30px; margin-left: 20px;">
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary"><i class="bi bi-plus-square-fill pr-4"
-                            style="padding-right: 10px;"></i>Agregar</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
                 </div>
             </div>
             <div class="col-md-11 mt-5 rounded-4" style="background-color: rgba(128, 128, 128, 0.245);">
-                <table class="table table-hover table-white mt-4 mb-0">
+                <table class="table table-hover table-sm table-white mt-2 mb-2" style="font-size: 14px;">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -53,7 +52,7 @@
                             <td>3</td>
                             <td>Mark</td>
                             <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
-                                    style="margin-right: 10px; color: blue;"></i>
+                                    style="margin-right: 40px; color: blue;"></i>
                                 <i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i>
                             </td>
                         </tr>
@@ -70,7 +69,7 @@
                             <td>3</td>
                             <td>Mark</td>
                             <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
-                                    style="margin-right: 10px; color: blue;"></i>
+                                    style="margin-right: 40px; color: blue;"></i>
                                 <i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i>
                             </td>
                         </tr>
@@ -101,3 +100,80 @@
         </div>
     </div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar laboratorio</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group pt-0 mb-3">
+                <label for="nombre" style="font-size: 13px; font-family: Verdana; color: black;">Nombre:</label>
+                <input type="text" name="nombre" class="form-control border rounded-1" id="nombre"
+                    placeholder="Ingrese el nombre"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="monitores" style="font-size: 13px; font-family: Verdana; color: black;">Monitores:</label>
+                <input type="text" name="monitores" class="form-control border rounded-1" id="monitores"
+                    placeholder="Ingrese la marca del monitor"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="cpu" style="font-size: 13px; font-family: Verdana; color: black;">CPU:</label>
+                <input type="text" name="cpu" class="form-control border rounded-1" id="cpu"
+                    placeholder="Ingrese la marca del CPU"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="teclado" style="font-size: 13px; font-family: Verdana; color: black;">Teclado:</label>
+                <input type="text" name="teclado" class="form-control border rounded-1" id="teclado"
+                    placeholder="Ingrese la marca del teclado"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="audifonos" style="font-size: 13px; font-family: Verdana; color: black;">Audifonos:</label>
+                <input type="text" name="audifonos" class="form-control border rounded-1" id="audifonos"
+                    placeholder="Ingrese la marca de los audifonos"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="infoqus" style="font-size: 13px; font-family: Verdana; color: black;">Infocus:</label>
+                <input type="text" name="infoqus" class="form-control border rounded-1" id="infoqus"
+                    placeholder="Ingrese la marca del infoqus"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="mouse" style="font-size: 13px; font-family: Verdana; color: black;">Mouse:</label>
+                <input type="text" name="mouse" class="form-control border rounded-1" id="mouse"
+                    placeholder="Ingrese la marca del mouse"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="sillas" style="font-size: 13px; font-family: Verdana; color: black;">Sillas:</label>
+                <input type="text" name="sillas" class="form-control border rounded-1" id="sillas"
+                    placeholder="Ingrese el numero de sillas"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="mesas" style="font-size: 13px; font-family: Verdana; color: black;">Mesas:</label>
+                <input type="text" name="mesas" class="form-control border rounded-1" id="mesas"
+                    placeholder="Ingrese el numero de mesas"
+                    style=" font-size: 12px; font-family: Verdana; background-color: white">
+            </div>
+            <div class="form-group pt-0 mb-3">
+                <label for="obser" style="font-size: 13px; font-family: Verdana; color: black;">Observaciones:</label>
+                <textarea class="form-control" id="obser" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary">Añadir</button>
+        </div>
+      </div>
+    </div>
+  </div>
