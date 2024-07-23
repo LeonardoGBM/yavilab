@@ -5,23 +5,25 @@
         </div>
         <div class="col-md-9">
             <div class="col-md-9 pt-5 pb-2">
-                <h2><b> Equipos</b></h2>
+                <h2><b>Equipos</b></h2>
             </div>
             <div class="col-md-11 mb-5">
                 <hr style="width: 100%;">
             </div>
-            <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4"
+            <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4 shadow-sm"
                 style="background-color: rgba(128, 128, 128, 0.245);">
-                <div>
-                    <label for="Filtros" style="margin-left: 50px;">Filtros</label>
-                    <input type="text" placeholder="Filtros" style="width: 300px; height: 30px; margin-left: 20px;">
+                <div class="position-relative" style="width: 300px; margin-left: 20px;">
+                    <input type="text" class="form-control" placeholder="Filtros" style="padding-right: 30px;">
+                    <i class="bi bi-funnel position-absolute"
+                        style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
                 </div>
             </div>
-            <div class="col-md-11 mt-5 rounded-4" style="background-color: rgba(128, 128, 128, 0.245);">
-                <table class="table table-hover table-sm table-white mt-2 mb-2" style="font-size: 14px;">
+            <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(128, 128, 128, 0.245);">
+                <table class="table table-hover table-sm mt-2 mb-2 text-center" style="font-size: 14px;">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -43,10 +45,7 @@
                             <td>Marvo</td>
                             <td>LG</td>
                             <td>HP</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
-                                    style="margin-right: 40px; color: blue;"></i>
-                                <i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i>
-                            </td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
@@ -56,20 +55,16 @@
                             <td>Marvo</td>
                             <td>LG</td>
                             <td>HP</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
-                                    style="margin-right: 40px; color: blue;"></i>
-                                <i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i>
-                            </td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
                         </tr>
                     </tbody>
-                </table>
+                </table>                
                 <div class="col-md-12 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
-                                    <span class="sr-only">Previous</span>
                                 </a>
                             </li>
                             <li class="page-item"><a class="page-link" href="#">1</a></li>
@@ -78,7 +73,6 @@
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
-                                    <span class="sr-only">Next</span>
                                 </a>
                             </li>
                         </ul>
@@ -90,7 +84,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,13 +95,15 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group pt-0 mb-3">
-                        <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de serie:</label>
+                        <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
+                            serie:</label>
                         <input type="text" name="numSerie" class="form-control border rounded-1" id="numSerie"
                             placeholder="Ingrese el numero de serie"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="desEquipo" style="font-size: 13px; font-family: Verdana; color: black;">Descripción del equipo:</label>
+                        <label for="desEquipo" style="font-size: 13px; font-family: Verdana; color: black;">Descripción
+                            del equipo:</label>
                         <input type="text" name="desEquipo" class="form-control border rounded-1" id="desEquipo"
                             placeholder="Ingrese la descripción del equipo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
@@ -130,7 +127,8 @@
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="labo" style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                        <label for="labo"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
                         <input type="text" name="labo" class="form-control border rounded-1" id="labo"
                             placeholder="Ingrese el laboratorio"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
