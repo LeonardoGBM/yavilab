@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-9">
             <div class="col-md-9 pt-5 pb-2">
-                <h2><b>Daños</b></h2>
+                <h2><b>Laboratorio Xian</b></h2>
             </div>
             <div class="col-md-11 mb-5">
                 <hr style="width: 100%;">
@@ -28,33 +28,33 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Numero de serie</th>
-                            <th scope="col">Hora de daños</th>
-                            <th scope="col">Fecha de daños</th>
-                            <th scope="col">Fecha de cambio</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Estado de daños</th>
+                            <th scope="col">Descripción del equipo</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Laboratorio</th>
                             <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>10796</td>
-                            <td>15H00</td>
-                            <td>23/ju/2024</td>
-                            <td>24/jul/2024</td>
-                            <td>Se cambio el teclado</td>
-                            <td>cambiado</td>
+                            <td>10376</td>
+                            <td>Teclado</td>
+                            <td>Dell</td>
+                            <td>Optiplex 9020</td>
+                            <td>Funcional</td>
+                            <td>Xian</td>
                             <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>10744</td>
-                            <td>09H00</td>
-                            <td>20/ago/2024</td>
-                            <td>30/ago/2024</td>
-                            <td>se cambio la pantalla</td>
-                            <td>cambiado</td>
+                            <td>10422</td>
+                            <td>Monitor</td>
+                            <td>Dell</td>
+                            <td>Optiplex 9020</td>
+                            <td>Funcional</td>
+                            <td>Gori</td>
                             <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
                         </tr>
                     </tbody>
@@ -102,35 +102,41 @@
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de daños:</label>
-                        <input type="time" name="hora" class="form-control border rounded-1" id="hora"
-                            placeholder="Ingrese la hora"
+                        <label for="desEquipo" style="font-size: 13px; font-family: Verdana; color: black;">Descripción
+                            del equipo:</label>
+                        <input type="text" name="desEquipo" class="form-control border rounded-1" id="desEquipo"
+                            placeholder="Ingrese la descripción del equipo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de daños:</label>
-                        <input type="date" name="fecha" class="form-control border rounded-1" id="fecha"
-                            placeholder="Ingrese la fecha de daño"
+                        <label for="marca" style="font-size: 13px; font-family: Verdana; color: black;">Marca:</label>
+                        <input type="text" name="marca" class="form-control border rounded-1" id="marca"
+                            placeholder="Ingrese la marca"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="fechaCambio" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de cambio:</label>
-                        <input type="date" name="fechaCambio" class="form-control border rounded-1" id="fechaCambio"
-                            placeholder="Ingrese la fecha de cambio"
+                        <label for="modelo" style="font-size: 13px; font-family: Verdana; color: black;">Modelo:</label>
+                        <input type="text" name="modelo" class="form-control border rounded-1" id="modelo"
+                            placeholder="Ingrese el modelo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="descripcion" style="font-size: 13px; font-family: Verdana; color: black;">Descripción:</label>
-                        <input type="text" name="descripcion" class="form-control border rounded-1" id="descripcion"
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
+                        <input type="text" name="estado" class="form-control border rounded-1" id="estado"
                             placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="estado"
-                            style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <input type="text" name="estado" class="form-control border rounded-1" id="estado"
-                            placeholder="Ingrese el laboratorio"
+                        <label for="labo" style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                        <select class="form-select" aria-label="Default select example"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option selected>Elije un laboratorio</option>
+                            <option value="1">Xian</option>
+                            <option value="2">Gori</option>
+                            <option value="3">Toolouse</option>
+                            <option value="3">Sarasota</option>
+                            <option value="3">Cenepa</option>
+                        </select>
                     </div>
                 </form>
             </div>

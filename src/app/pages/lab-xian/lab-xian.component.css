@@ -1,0 +1,26 @@
+.table {
+    background-color: transparent;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+}
+
+.table thead th {
+    background-color: transparent;
+    border-bottom: none;
+}
+
+.table tbody tr {
+    background-color: transparent;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease-in-out;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f1f1;
+    transform: translateY(-2px);
+}
+
+.table tbody td,
+.table tbody th {
+    border-top: none;
+}
