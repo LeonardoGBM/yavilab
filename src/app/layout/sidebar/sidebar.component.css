@@ -1,7 +1,11 @@
 #sidebar {
-    max-width: 250px;
-    margin-left: -12px;
-    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: rgb(76, 152, 244);
+    overflow-y: auto;
 }
 #sidebar .nav-link {
     color: white;

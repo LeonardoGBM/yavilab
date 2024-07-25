@@ -18,47 +18,62 @@
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
                 <div>
+                    <button type="button" class="btn btn-primary"
+                        style="margin-left: 300px; background-color:rgb(132, 207, 132); border-color: rgb(132, 207, 132);">Generar
+                        reporte</button>
+                </div>
+                <div>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
                 </div>
             </div>
             <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(128, 128, 128, 0.245);">
-                <table class="table table-hover table-sm mt-2 mb-2 text-center" style="font-size: 14px;">
+                <table class="table table-hover table-sm mt-2 mb-2 text-center" style="font-size: 13px;">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Numero de serie</th>
-                            <th scope="col">Hora de daños</th>
-                            <th scope="col">Fecha de daños</th>
-                            <th scope="col">Fecha de cambio</th>
+                            <th scope="col">Fecha daños</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Laboratorio</th>
+                            <th scope="col">Equipos_id</th>
+                            <th scope="col">Daños_id</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">Estado de daños</th>
+                            <th scope="col">Fecha cambio</th>
                             <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>10796</td>
-                            <td>15H00</td>
                             <td>23/ju/2024</td>
-                            <td>24/jul/2024</td>
+                            <td>Sony</td>
+                            <td>Funcional</td>
+                            <td>Xian</td>
+                            <td>1</td>
+                            <td>3</td>
                             <td>Se cambio el teclado</td>
-                            <td>cambiado</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
+                            <td>23/jul/2024</td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
+                                    style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill"
+                                    style="margin-left: 10px; color: red;"></i></td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>10744</td>
-                            <td>09H00</td>
                             <td>20/ago/2024</td>
-                            <td>30/ago/2024</td>
-                            <td>se cambio la pantalla</td>
-                            <td>cambiado</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
+                            <td>Alcatel</td>
+                            <td>Funcional</td>
+                            <td>Cenepa</td>
+                            <td>3</td>
+                            <td>2</td>
+                            <td>Se cambio el teclado</td>
+                            <td>23/jul/2023</td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
+                                    style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill"
+                                    style="margin-left: 10px; color: red;"></i></td>
                         </tr>
                     </tbody>
-                </table>                
+                </table>
                 <div class="col-md-12 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -89,7 +104,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar equipo</h1>
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar daño</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -102,34 +117,37 @@
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de daños:</label>
+                        <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de
+                            daños:</label>
                         <input type="time" name="hora" class="form-control border rounded-1" id="hora"
                             placeholder="Ingrese la hora"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de daños:</label>
+                        <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
+                            daños:</label>
                         <input type="date" name="fecha" class="form-control border rounded-1" id="fecha"
                             placeholder="Ingrese la fecha de daño"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="fechaCambio" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de cambio:</label>
+                        <label for="fechaCambio" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
+                            cambio:</label>
                         <input type="date" name="fechaCambio" class="form-control border rounded-1" id="fechaCambio"
                             placeholder="Ingrese la fecha de cambio"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="descripcion" style="font-size: 13px; font-family: Verdana; color: black;">Descripción:</label>
+                        <label for="descripcion"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Descripción:</label>
                         <input type="text" name="descripcion" class="form-control border rounded-1" id="descripcion"
                             placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="estado"
-                            style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
                         <input type="text" name="estado" class="form-control border rounded-1" id="estado"
-                            placeholder="Ingrese el laboratorio"
+                            placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                 </form>

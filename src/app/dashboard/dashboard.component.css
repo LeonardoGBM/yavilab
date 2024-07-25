@@ -1,5 +1,22 @@
 .custom-size {
     width: 80px;
     height: 80px;
-  }
+}
+
+.custom-card {
+  height: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
   
