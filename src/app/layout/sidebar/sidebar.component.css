@@ -11,7 +11,7 @@
     color: white;
 }
 #sidebar .nav-link:hover {
-    background-color: #495057;
+    background-color:rgba(14, 122, 255, 0.2);
 }
 #content {
     flex: 1;
