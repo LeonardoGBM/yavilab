@@ -4,7 +4,8 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { ErroresComponent } from './pages/errores/errores.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { LaboratorioService } from './service/laboratorio.service';
 
 
 @NgModule({
@@ -14,7 +15,11 @@ import { ErroresComponent } from './pages/errores/errores.component';
     LoginComponent,
     DashboardComponent,
     RegisterComponent,
-    ErroresComponent
+    ErroresComponent,
+    HttpClientModule,
+  ],
+  providers:[
+  LaboratorioService
   ]
   
 })

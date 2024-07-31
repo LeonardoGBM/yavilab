@@ -41,9 +41,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr *ngFor="let item of data">
                             <th scope="row">1</th>
-                            <td>Xian</td>
+                            <td>{{item.nombre_lab}}</td>
                             <td>50</td>
                             <td>60</td>
                             <td>100</td>
