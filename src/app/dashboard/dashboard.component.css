@@ -18,5 +18,23 @@
   font-weight: bold;
 }
 
+.img-fluid {
+  width: 25%;
+  height: auto;
+  margin-top: 2%;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-animation {
+  animation: spin 8s linear infinite;
+}
 
   

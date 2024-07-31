@@ -4,11 +4,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('../../assets/img/laboratorio.jpg');
+  background-image: url('../../assets/img/Fondo.png');
   background-size: cover;
-  background-position: center;
   filter: blur(3px);
-  -webkit-filter: blur(2px);
+  -webkit-filter: blur(0px);
   z-index: -1;
 }
 

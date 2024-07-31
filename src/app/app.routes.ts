@@ -10,8 +10,10 @@ import { LabGoriComponent } from './pages/lab-gori/lab-gori.component';
 import { LabToolouseComponent } from './pages/lab-toolouse/lab-toolouse.component';
 import { LabSarasotaComponent } from './pages/lab-sarasota/lab-sarasota.component';
 import { LabCenepaComponent } from './pages/lab-cenepa/lab-cenepa.component';
+import { UsuarioComponent } from './pages/usuarios/usuario.component';
 
 export const routes: Routes = [
+    
     { path: '', component: LoginComponent},
     { path: 'dashboard', component: DashboardComponent},
     { path: 'lab', component: LaboratoriosComponent},
@@ -22,6 +24,8 @@ export const routes: Routes = [
     { path: 'lab-gori', component: LabGoriComponent},
     { path: 'lab-toolouse', component:LabToolouseComponent},
     { path: 'lab-sarasota', component:LabSarasotaComponent},
-    { path: 'lab-cenepa', component:LabCenepaComponent}
+    { path: 'lab-cenepa', component:LabCenepaComponent},
+    { path: 'usuarios', component:UsuarioComponent}
+
 ];
 

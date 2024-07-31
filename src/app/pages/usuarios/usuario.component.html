@@ -1,0 +1,135 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-md-9">
+            <div class="col-md-9 pt-5 pb-2" style="font-size: 13px; font-family: Verdana;">
+                <h2>Usuarios</h2>
+            </div>
+            <div class="col-md-11 mb-5">
+                <hr style="width: 100%;">
+            </div>
+            <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4 shadow-sm"
+                style="background-color: rgba(14, 122, 255, 0.2);">
+                <div class="position-relative" style="width: 300px; margin-left: 20px;">
+                    <input type="text" class="form-control" placeholder="Filtros" style="padding-right: 30px;">
+                    <i class="bi bi-funnel position-absolute"
+                        style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
+                </div>
+            </div>
+            <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(14, 122, 255, 0.2);">
+                <table class="table table-hover table-sm mt-2 mb-2 text-center" style="font-size: 14px;">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Contraseña</th>
+                            <th scope="col">rol_id</th>
+                            <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Joseph</td>
+                            <td>Gomez</td>
+                            <td>joseph&#64;gmail.com</td>
+                            <td>123</td>
+                            <td>Administrador</td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Lorenzo</td>
+                            <td>Mena</td>
+                            <td>lore&#64;gmail.com</td>
+                            <td>21232</td>
+                            <td>Usuario</td>
+                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
+                        </tr>
+                    </tbody>
+                </table>                
+                <div class="col-md-12 d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar usuarios</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="nombre" style="font-size: 13px; font-family: Verdana; color: black;">Nombre:</label>
+                        <input type="text" name="nombre" class="form-control border rounded-1" id="nombre"
+                            placeholder="Ingrese el nombre"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="apellido" style="font-size: 13px; font-family: Verdana; color: black;">Apellido:</label>
+                        <input type="text" name="apellido" class="form-control border rounded-1" id="apellido"
+                            placeholder="Ingrese el apellido"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="email" style="font-size: 13px; font-family: Verdana; color: black;">Email:</label>
+                        <input type="email" name="email" class="form-control border rounded-1" id="email"
+                            placeholder="Ingrese el email"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="contraseña" style="font-size: 13px; font-family: Verdana; color: black;">Contraseña:</label>
+                        <input type="text" name="contraseña" class="form-control border rounded-1" id="contraseña"
+                            placeholder="Ingrese la contraseña"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="rol" style="font-size: 13px; font-family: Verdana; color: black;">rol_id:</label>
+                        <select class="form-select" aria-label="Default select example"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option selected>Elije un rol</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Usuario</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Añadir</button>
+            </div>
+        </div>
+    </div>
+</div>
