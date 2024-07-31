@@ -4,32 +4,25 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { ErroresComponent } from './pages/errores/errores.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-
+import { HttpClientModule } from '@angular/common/http';
+import { LaboratorioService } from './service/laboratorio.service';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
+  declarations: [],
+  imports: [
+    CommonModule,
     LoginComponent,
     DashboardComponent,
-    ErroresComponent,
     RegisterComponent,
+    ErroresComponent,
+    HttpClientModule,
   ],
-  imports: [
-    BrowserModule,
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers:[
+  LaboratorioService
+  ]
   
 })
 export class AppModule {
   
-}
+ }
