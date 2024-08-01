@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-9">
             <div class="col-md-9 pt-5 pb-2" style="font-size: 13px; font-family: Verdana;">
-                <h2>Daños</h2>
+                <h3>Daños</h3>
             </div>
             <div class="col-md-11 mb-5">
                 <hr style="width: 100%;">
@@ -18,13 +18,16 @@
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary"
-                        style="margin-left: 300px; background-color:rgb(132, 207, 132); border-color: rgb(132, 207, 132);">Generar
-                        reporte</button>
+                    <button type="button" class="pdf-button">
+                        <i class="bi bi-file-pdf"></i>
+                        Descargar PDF
+                    </button>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
+                    <button type="button" class="btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <i class="bi bi-plus"></i>
+                        Agregar
+                    </button>
                 </div>
             </div>
             <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(14, 122, 255, 0.2);">
@@ -32,42 +35,24 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Fecha daños</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Laboratorio</th>
-                            <th scope="col">Equipos_id</th>
-                            <th scope="col">Daños_id</th>
+                            <th scope="col">Numero de serie</th>
+                            <th scope="col">Hora de daños</th>
+                            <th scope="col">Fecha de daños</th>
+                            <th scope="col">Fecha de cambio</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">Fecha cambio</th>
+                            <th scope="col">Laboratorio</th>
                             <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>23/ju/2024</td>
-                            <td>Sony</td>
-                            <td>Funcional</td>
-                            <td>Xian</td>
-                            <td>1</td>
-                            <td>3</td>
-                            <td>Se cambio el teclado</td>
-                            <td>23/jul/2024</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
-                                    style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill"
-                                    style="margin-left: 10px; color: red;"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>20/ago/2024</td>
-                            <td>Alcatel</td>
-                            <td>Funcional</td>
-                            <td>Cenepa</td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>Se cambio el teclado</td>
-                            <td>23/jul/2023</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
                                     style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill"
                                     style="margin-left: 10px; color: red;"></i></td>
@@ -141,14 +126,21 @@
                         <label for="descripcion"
                             style="font-size: 13px; font-family: Verdana; color: black;">Descripción:</label>
                         <input type="text" name="descripcion" class="form-control border rounded-1" id="descripcion"
-                            placeholder="Ingrese el estado"
+                            placeholder="Ingrese la descripción"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <input type="text" name="estado" class="form-control border rounded-1" id="estado"
-                            placeholder="Ingrese el estado"
+                        <label for="labo"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                        <select class="form-select" aria-label="Default select example"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option selected>Elije un laboratorio</option>
+                            <option value="1">Xian</option>
+                            <option value="2">Gori</option>
+                            <option value="3">Toolouse</option>
+                            <option value="3">Sarasota</option>
+                            <option value="3">Cenepa</option>
+                        </select>
                     </div>
                 </form>
             </div>

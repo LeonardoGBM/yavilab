@@ -5,7 +5,7 @@
         </div>
         <div class="col-md-9">
             <div class="col-md-9 pt-5 pb-2" style="font-size: 13px; font-family: Verdana;">
-                <h2>Laboratorios</h2>
+                <h3>Laboratorios</h3>
             </div>
             <div class="col-md-11 mb-5">
                 <hr style="width: 100%;">
@@ -18,8 +18,10 @@
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
+                    <button type="button" class="btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <i class="bi bi-plus"></i>
+                        Agregar
+                    </button>
                 </div>
             </div>
             <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(14, 122, 255, 0.2);">
@@ -55,7 +57,8 @@
                             <td>{{ item.observaciones}}</td>
                             <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
                                     style="margin-right: 40px; color: blue;"></i>
-                                <i class="bi bi-trash-fill"  (click)="eliminar(item)" style="margin-left: 10px; color: red;"></i>
+                                <i class="bi bi-trash-fill" (click)="eliminar(item)"
+                                    style="margin-left: 10px; color: red;"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -99,14 +102,15 @@
                 <div class="modal-body">
                     <div class="form-group pt-0 mb-3">
                         <label for="nombre" style="font-size: 13px; font-family: Verdana; color: black;">Nombre:</label>
-                        <input type="text" [(ngModel)]="nombre" name="name" class="form-control border rounded-1" id="nombre"
-                            placeholder="Ingrese el nombre"
+                        <input type="text" [(ngModel)]="nombre" name="name" class="form-control border rounded-1"
+                            id="nombre" placeholder="Ingrese el nombre"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="monitores"
                             style="font-size: 13px; font-family: Verdana; color: black;">Monitores:</label>
-                        <input type="text" [(ngModel)]="monitores" name="monitores" class="form-control border rounded-1" id="monitores"
+                        <input type="text" [(ngModel)]="monitores" name="monitores"
+                            class="form-control border rounded-1" id="monitores"
                             placeholder="Ingrese la marca del monitor"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
@@ -119,46 +123,48 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="teclado"
                             style="font-size: 13px; font-family: Verdana; color: black;">Teclado:</label>
-                        <input type="text"[(ngModel)]="teclado" name="teclado" class="form-control border rounded-1" id="teclado"
-                            placeholder="Ingrese la marca del teclado"
+                        <input type="text" [(ngModel)]="teclado" name="teclado" class="form-control border rounded-1"
+                            id="teclado" placeholder="Ingrese la marca del teclado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="audifonos"
                             style="font-size: 13px; font-family: Verdana; color: black;">Audifonos:</label>
-                        <input type="text" [(ngModel)]="audifonos" name="audifonos" class="form-control border rounded-1" id="audifonos"
+                        <input type="text" [(ngModel)]="audifonos" name="audifonos"
+                            class="form-control border rounded-1" id="audifonos"
                             placeholder="Ingrese la marca de los audifonos"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="infoqus"
                             style="font-size: 13px; font-family: Verdana; color: black;">Infocus:</label>
-                        <input type="text" [(ngModel)]="infocus" name="infocus" class="form-control border rounded-1" id="infoqus"
-                            placeholder="Ingrese la marca del infoqus"
+                        <input type="text" [(ngModel)]="infocus" name="infocus" class="form-control border rounded-1"
+                            id="infoqus" placeholder="Ingrese la marca del infoqus"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="mouse" style="font-size: 13px; font-family: Verdana; color: black;">Mouse:</label>
-                        <input type="text" [(ngModel)]="mouse" name="mouse" class="form-control border rounded-1" id="mouse"
-                            placeholder="Ingrese la marca del mouse"
+                        <input type="text" [(ngModel)]="mouse" name="mouse" class="form-control border rounded-1"
+                            id="mouse" placeholder="Ingrese la marca del mouse"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="sillas" style="font-size: 13px; font-family: Verdana; color: black;">Sillas:</label>
-                        <input type="text" [(ngModel)]="sillas" name="sillas" class="form-control border rounded-1" id="sillas"
-                            placeholder="Ingrese el numero de sillas"
+                        <input type="text" [(ngModel)]="sillas" name="sillas" class="form-control border rounded-1"
+                            id="sillas" placeholder="Ingrese el numero de sillas"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="mesas" style="font-size: 13px; font-family: Verdana; color: black;">Mesas:</label>
-                        <input type="text" [(ngModel)]="mesas" name="mesas" class="form-control border rounded-1" id="mesas"
-                            placeholder="Ingrese el numero de mesas"
+                        <input type="text" [(ngModel)]="mesas" name="mesas" class="form-control border rounded-1"
+                            id="mesas" placeholder="Ingrese el numero de mesas"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="obser"
                             style="font-size: 13px; font-family: Verdana; color: black;">Observaciones:</label>
-                        <textarea [(ngModel)]="observaciones" name="observaciones"  class="form-control" id="obser" rows="3"></textarea>
+                        <textarea [(ngModel)]="observaciones" name="observaciones" class="form-control" id="obser"
+                            rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -166,7 +172,6 @@
                     <button type="submit" class="btn btn-primary">Añadir</button>
                 </div>
             </div>
-
         </div>
     </form>
 </div>
