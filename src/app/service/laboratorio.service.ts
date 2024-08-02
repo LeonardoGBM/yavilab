@@ -6,7 +6,10 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class LaboratorioService {
-  private api = "/api/laboratory";  // Usa una ruta relativa si estás configurando un proxy
+  getDato() {
+    throw new Error('Method not implemented.');
+  }
+  private api = "/api/laboratory";  
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +35,7 @@ export class LaboratorioService {
 
   //eliminar datos
   eliminar(id: number): Observable<any> {
-    const url = `${this.api}/${id}`;
+    const url = `${this.api}/${id}/`;
     console.log('URL de eliminación:', url);
     return this.http.delete(url)
       .pipe(
@@ -41,6 +44,13 @@ export class LaboratorioService {
           throw error;
         })
       );
+  }
+
+  //metodo editar
+  public editarDato(id: number, data: any): Observable<any> {
+    
+    return this.http.put(`${this.api}/${id}`, data)
+     
   }
   
 }

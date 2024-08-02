@@ -7,13 +7,14 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-laboratorios',
   standalone: true,
-  imports: [ SidebarComponent, CommonModule, HttpClientModule, FormsModule,],
+  imports: [SidebarComponent, CommonModule, HttpClientModule, FormsModule,],
   templateUrl: './laboratorios.component.html',
   styleUrl: './laboratorios.component.css'
 })
-export class LaboratoriosComponent{
+export class LaboratoriosComponent {
+  //listar datos
   data: any[] = [];
-
+  //aregar
   nombre: string = '';
   monitores: string = '';
   cpu: string = '';
@@ -26,6 +27,9 @@ export class LaboratoriosComponent{
   observaciones: string = '';
   dato: any;
 
+  datoEditado: any = { nombre_lab: '', monitores: '', cpu: '', teclado: '', audifonos: '', infocus: '', mouse: '', sillas: '', mesas: '', observaciones: '' };
+  modoEdicion: boolean = false;
+
   constructor(private traer: LaboratorioService) { }
 
 
@@ -37,20 +41,20 @@ export class LaboratoriosComponent{
       },
     });
   }*/
-    ngOnInit(): void {
-      this.traer.traer().subscribe({
-        next: (data: any[]) => {
-          this.data = data;
-          console.log('Datos recibidos:', this.data);
-        },
-        error: (error) => {
-          console.error('Error al traer datos:', error);
-        }
-      });
-    }
+  ngOnInit(): void {
+    this.traer.traer().subscribe({
+      next: (data: any[]) => {
+        this.data = data;
+        console.log('Datos recibidos:', this.data);
+      },
+      error: (error) => {
+        console.error('Error al traer datos:', error);
+      }
+    });
+  }
 
   //agregar datos
-  agregarDato(){
+  agregarDato() {
     const data = {
       nombre_lab: this.nombre,
       monitores: this.monitores,
@@ -64,10 +68,10 @@ export class LaboratoriosComponent{
       observaciones: this.observaciones
 
     };
-  
+
     this.traer.agregarDato(data).subscribe(response => {
       console.log('Dato agregado', response);
-      this.nombre ='';
+      this.nombre = '';
       this.monitores = '';
       this.cpu = '';
       this.teclado = '';
@@ -90,7 +94,7 @@ export class LaboratoriosComponent{
   }
 
   //eliminar datos
-  
+
   eliminar(dato: any) {
     if (dato && dato.id && confirm('¿Estás seguro de eliminar este registro?')) {
       this.traer.eliminar(dato.id).subscribe({
@@ -105,5 +109,47 @@ export class LaboratoriosComponent{
     } else {
       console.error('El dato no tiene un ID válido');
     }
+  }
+
+  //editar dato
+
+  // Método para iniciar la edición de un dato
+  editarDato(dato: any) {
+    this.datoEditado = { ...dato };
+    this.modoEdicion = true;
+  }
+
+  guardarEdicion() {
+    const updatedData = {
+      nombre_lab: this.datoEditado.nombre_lab,
+      monitores: this.datoEditado.monitores,
+      cpu: this.datoEditado.cpu,
+      teclado: this.datoEditado.teclado,
+      audifonos: this.datoEditado.audifonos,
+      infocus: this.datoEditado.infocus,
+      mouse: this.datoEditado.mouse,
+      sillas: this.datoEditado.sillas,
+      mesas: this.datoEditado.mesas,
+      observaciones: this.datoEditado.observaciones
+    };
+
+    this.traer.editarDato(this.datoEditado.id, updatedData).subscribe({
+      next: (response: any) => {
+        console.log('Dato editado correctamente', response);
+        this.traer.traer().subscribe({
+          next: (data: any[]) => {
+            this.data = data;
+            console.log('Datos actualizados después de editar', this.data);
+          },
+          error: (error) => {
+            console.error('Error al traer datos actualizados', error);
+          }
+        });
+        this.modoEdicion = false; // Cerrar el formulario después de guardar
+      },
+      error: (error) => {
+        console.error('Error al editar dato', error);
+      }
+    });
   }
 }
