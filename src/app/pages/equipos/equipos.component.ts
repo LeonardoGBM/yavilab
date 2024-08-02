@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarComponent } from '../../layout/sidebar/sidebar.component';
+import { LaboratorioService } from '../../service/laboratorio.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-equipos',
@@ -9,5 +11,5 @@ import { SidebarComponent } from '../../layout/sidebar/sidebar.component';
   styleUrl: './equipos.component.css'
 })
 export class EquiposComponent {
-
+  
 }
