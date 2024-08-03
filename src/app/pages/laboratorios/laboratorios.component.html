@@ -13,20 +13,16 @@
             <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4 shadow-sm"
                 style="background-color: rgba(14, 122, 255, 0.2);">
                 <div class="position-relative" style="width: 300px; margin-left: 20px;">
-                    <input type="text" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()"  class="form-control" placeholder="Filtros" style="padding-right: 30px;">
+                    <input type="text" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()" class="form-control"
+                        placeholder="Filtros" style="padding-right: 30px;">
                     <i class="bi bi-funnel position-absolute"
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
                 <div>
-<<<<<<< HEAD
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#addModal" style="margin-right: 20px;">Agregar</button>
-=======
-                    <button type="button" class="btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <i class="bi bi-plus"></i>
-                        Agregar
-                    </button>
->>>>>>> a3e0ff699f081406ded4f3b457d032ebc4247b1c
+
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"
+                        style="margin-right: 20px;">Agregar</button>
+
                 </div>
             </div>
             <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(14, 122, 255, 0.2);">
@@ -59,11 +55,12 @@
                             <td>{{ item.mouse }}</td>
                             <td>{{ item.sillas }}</td>
                             <td>{{ item.mesas }}</td>
-                            <td>{{ item.observaciones }}</td>
+                            <td class="descripcion-scroll">{{ item.observaciones }}</td>
                             <td class="d-flex justify-content-center">
-                                <i class="bi bi-pencil-square"  (click)="editarDato(item)" data-bs-toggle="modal"
+                                <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
                                     data-bs-target="#editModal" style="margin-right: 40px; color: blue;"></i>
-                                <i class="bi bi-trash-fill" (click)="eliminar(item)" style="margin-left: 10px; color: red;"></i>
+                                <i class="bi bi-trash-fill" (click)="eliminar(item)"
+                                    style="margin-left: 10px; color: red;"></i>
                             </td>
                         </tr>
                     </tbody>
@@ -177,7 +174,7 @@
             </div>
         </div>
     </form>
-</div> 
+</div>
 
 <!-- Modal para Editar -->
 <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -197,57 +194,68 @@
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="monitores" style="font-size: 13px; font-family: Verdana; color: black;">Monitores:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.monitores" name="monitores"
-                            class="form-control border rounded-1" id="monitores" placeholder="Ingrese la marca del monitor"
+                        <label for="monitores"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Monitores:</label>
+                        <input type="text" [(ngModel)]="datoEditado.monitores" name="monitores"
+                            class="form-control border rounded-1" id="monitores"
+                            placeholder="Ingrese la marca del monitor"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="cpu" style="font-size: 13px; font-family: Verdana; color: black;">CPU:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.cpu" name="cpu"
+                        <input type="text" [(ngModel)]="datoEditado.cpu" name="cpu"
                             class="form-control border rounded-1" id="cpu" placeholder="Ingrese la marca del CPU"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="teclado" style="font-size: 13px; font-family: Verdana; color: black;">Teclado:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.teclado" name="teclado"
-                            class="form-control border rounded-1" id="teclado" placeholder="Ingrese la marca del teclado"
+                        <label for="teclado"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Teclado:</label>
+                        <input type="text" [(ngModel)]="datoEditado.teclado" name="teclado"
+                            class="form-control border rounded-1" id="teclado"
+                            placeholder="Ingrese la marca del teclado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="audifonos" style="font-size: 13px; font-family: Verdana; color: black;">Audifonos:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.audifonos" name="audifonos"
-                            class="form-control border rounded-1" id="audifonos" placeholder="Ingrese la marca de los audifonos"
+                        <label for="audifonos"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Audifonos:</label>
+                        <input type="text" [(ngModel)]="datoEditado.audifonos" name="audifonos"
+                            class="form-control border rounded-1" id="audifonos"
+                            placeholder="Ingrese la marca de los audifonos"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="infocus" style="font-size: 13px; font-family: Verdana; color: black;">Infocus:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.infocus" name="infocus"
-                            class="form-control border rounded-1" id="infocus" placeholder="Ingrese la marca del infocus"
+                        <label for="infocus"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Infocus:</label>
+                        <input type="text" [(ngModel)]="datoEditado.infocus" name="infocus"
+                            class="form-control border rounded-1" id="infocus"
+                            placeholder="Ingrese la marca del infocus"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="mouse" style="font-size: 13px; font-family: Verdana; color: black;">Mouse:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.mouse" name="mouse"
+                        <input type="text" [(ngModel)]="datoEditado.mouse" name="mouse"
                             class="form-control border rounded-1" id="mouse" placeholder="Ingrese la marca del mouse"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="sillas" style="font-size: 13px; font-family: Verdana; color: black;">Sillas:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.sillas" name="sillas"
+                        <input type="text" [(ngModel)]="datoEditado.sillas" name="sillas"
                             class="form-control border rounded-1" id="sillas" placeholder="Ingrese el número de sillas"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="mesas" style="font-size: 13px; font-family: Verdana; color: black;">Mesas:</label>
-                        <input type="text"  [(ngModel)]="datoEditado.mesas" name="mesas"
+                        <input type="text" [(ngModel)]="datoEditado.mesas" name="mesas"
                             class="form-control border rounded-1" id="mesas" placeholder="Ingrese el número de mesas"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="observaciones" style="font-size: 13px; font-family: Verdana; color: black;">Observaciones:</label>
-                        <textarea name="observaciones"  [(ngModel)]="datoEditado.observaciones" class="form-control border rounded-1" id="observaciones"
-                            placeholder="Ingrese observaciones adicionales" style=" font-size: 12px; font-family: Verdana; background-color: white"></textarea>
+                        <label for="observaciones"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Observaciones:</label>
+                        <textarea name="observaciones" [(ngModel)]="datoEditado.observaciones"
+                            class="form-control border rounded-1" id="observaciones"
+                            placeholder="Ingrese observaciones adicionales"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

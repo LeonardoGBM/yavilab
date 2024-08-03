@@ -48,3 +48,9 @@
 .btn-custom:hover {
     background-color: #0056b3; 
 }
+
+.descripcion-scroll {
+    max-width: 200px; /* Ajusta el ancho máximo según tus necesidades */
+    overflow: auto;
+    white-space: nowrap; /* Mantiene el texto en una sola línea */
+}
