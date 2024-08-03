@@ -13,7 +13,8 @@
             <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4 shadow-sm"
                 style="background-color: rgba(14, 122, 255, 0.2);">
                 <div class="position-relative" style="width: 300px; margin-left: 20px;">
-                    <input type="text" class="form-control" placeholder="Filtros" style="padding-right: 30px;">
+                    <input type="text" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()" class="form-control"
+                        placeholder="Filtros" style="padding-right: 30px;">
                     <i class="bi bi-funnel position-absolute"
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
@@ -30,32 +31,26 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Apellido</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Contraseña</th>
-                            <th scope="col">rol_id</th>
+                            <th scope="col">rol</th>
                             <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Joseph</td>
-                            <td>Gomez</td>
-                            <td>joseph&#64;gmail.com</td>
-                            <td>123</td>
-                            <td>Administrador</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Lorenzo</td>
-                            <td>Mena</td>
-                            <td>lore&#64;gmail.com</td>
-                            <td>21232</td>
-                            <td>Usuario</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
+                        <tr *ngFor="let item of data, let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{ item.nombre }}</td>
+                            <td>{{ item.apellido }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.rol }}</td>
+                            <td class="d-flex justify-content-center">
+                                <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
+                                    data-bs-target="#editModal" style="margin-right: 40px; color: blue;"></i>
+                                <i class="bi bi-trash-fill" (click)="eliminar(item)"
+                                    style="margin-left: 10px; color: red;"></i>
+                            </td>
                         </tr>
                     </tbody>
-                </table>                
+                </table>
                 <div class="col-md-12 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -83,53 +78,114 @@
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar usuarios</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
+    <form (submit)="agregarDato()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar usuarios</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group pt-0 mb-3">
                         <label for="nombre" style="font-size: 13px; font-family: Verdana; color: black;">Nombre:</label>
-                        <input type="text" name="nombre" class="form-control border rounded-1" id="nombre"
-                            placeholder="Ingrese el nombre"
+                        <input type="text" [(ngModel)]="nombre" name="nombre" class="form-control border rounded-1"
+                            id="nombre" placeholder="Ingrese el nombre"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="apellido" style="font-size: 13px; font-family: Verdana; color: black;">Apellido:</label>
-                        <input type="text" name="apellido" class="form-control border rounded-1" id="apellido"
-                            placeholder="Ingrese el apellido"
+                        <label for="apellido"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Apellido:</label>
+                        <input type="text" [(ngModel)]="apellido" name="apellido" class="form-control border rounded-1"
+                            id="apellido" placeholder="Ingrese el apellido"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="email" style="font-size: 13px; font-family: Verdana; color: black;">Email:</label>
-                        <input type="email" name="email" class="form-control border rounded-1" id="email"
-                            placeholder="Ingrese el email"
+                        <input type="email" [(ngModel)]="email" name="email" class="form-control border rounded-1"
+                            id="email" placeholder="Ingrese el email"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
-                    <div class="form-group pt-0 mb-3">
+                    <div class="contenedor1">
                         <label for="contraseña" style="font-size: 13px; font-family: Verdana; color: black;">Contraseña:</label>
-                        <input type="text" name="contraseña" class="form-control border rounded-1" id="contraseña"
-                            placeholder="Ingrese la contraseña"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                    </div>
+                        <input type="password" [(ngModel)]="contrasena" name="contrasena" class="form-control border rounded-1" id="contrasena"
+                          placeholder="Ingrese la contraseña"
+                          style="font-size: 12px; font-family: Verdana; background-color: white">
+                          <i class="bi bi-eye icono" id="toggleEye" (click)="togglePasswordVisibility()"></i>
+                      </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="rol" style="font-size: 13px; font-family: Verdana; color: black;">rol_id:</label>
-                        <select class="form-select" aria-label="Default select example"
+                        <label for="contraseña"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Rol:</label>
+                        <select [(ngModel)]="rol" name="rol" id="rol" class="form-control border rounded-1" id="estado"
+                            placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option selected>Elije un rol</option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Usuario</option>
+                            <option>Administrador</option>
+                            <option>Usuario</option>
                         </select>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Añadir</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
+</div>
+
+<!-- Editar -->
+<div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <form (ngSubmit)="guardarEdicion()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar usuarios</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group pt-0 mb-3">
+                        <label for="nombre" style="font-size: 13px; font-family: Verdana; color: black;">Nombre:</label>
+                        <input type="text" [(ngModel)]="datoEditado.nombre" name="nombre"
+                            class="form-control border rounded-1" id="nombre" placeholder="Ingrese el nombre"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="apellido"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Apellido:</label>
+                        <input type="text" [(ngModel)]="datoEditado.apellido" name="apellido"
+                            class="form-control border rounded-1" id="apellido" placeholder="Ingrese el apellido"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="email" style="font-size: 13px; font-family: Verdana; color: black;">Email:</label>
+                        <input type="email" [(ngModel)]="datoEditado.email" name="email"
+                            class="form-control border rounded-1" id="email" placeholder="Ingrese el email"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="contraseña"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Contraseña:</label>
+                        <input type="password" [(ngModel)]="datoEditado.contrasena" name="contrasena"
+                            class="form-control border rounded-1" id="contraseña" placeholder="Ingrese la contraseña"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <i class="bi bi-eye icono" id="toggleEye" (click)="togglePasswordVisibility()"></i>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="contraseña"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Rol:</label>
+                        <select [(ngModel)]="datoEditado.rol" name="rol" id="rol" class="form-control border rounded-1"
+                            id="estado" placeholder="Ingrese el estado"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option>Administrador</option>
+                            <option>Usuario</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>

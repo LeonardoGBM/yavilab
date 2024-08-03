@@ -13,7 +13,7 @@
             <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4 shadow-sm"
                 style="background-color: rgba(14, 122, 255, 0.2);">
                 <div class="position-relative" style="width: 300px; margin-left: 20px;">
-                    <input type="text" class="form-control" placeholder="Filtros" style="padding-right: 30px;">
+                    <input type="text" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()"  class="form-control" placeholder="Filtros" style="padding-right: 30px;">
                     <i class="bi bi-funnel position-absolute"
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
@@ -165,10 +165,9 @@
                     <button type="submit" class="btn btn-primary">Añadir</button>
                 </div>
             </div>
-
         </div>
     </form>
-</div>
+</div> 
 
 <!-- Modal para Editar -->
 <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

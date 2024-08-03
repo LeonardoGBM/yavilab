@@ -24,3 +24,10 @@
 .table tbody th {
     border-top: none;
 }
+.contenedor1 {
+    position: relative;
+  }
+  
+  .contenedor1 .form-control {
+    padding-right: 30px;
+  }

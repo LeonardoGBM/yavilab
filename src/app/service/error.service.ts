@@ -43,7 +43,7 @@ export class ErrorService {
     return this.http.delete(url)
       .pipe(
         catchError((error: any) => {
-          console.error('Error al eliminar el laboratorio:', error);
+          console.error('Error al eliminar el daño:', error);
           throw error;
         })
       );

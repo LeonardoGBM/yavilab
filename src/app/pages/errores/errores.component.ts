@@ -15,6 +15,7 @@ import html2canvas from 'html2canvas';
   styleUrl: './errores.component.css'
 })
 export class ErroresComponent {
+  filtro: string = '';
   //listar datos
   data: any[] = [];
   //aregar
@@ -83,7 +84,6 @@ export class ErroresComponent {
       }
     });
   }
-  // Condicional para numero de serie
 
 
 
@@ -105,7 +105,25 @@ export class ErroresComponent {
     }
   }
 
-  //editar dato
+  //filtro
+  aplicarFiltro() {
+    if (this.filtro) {
+      this.data = this.data.filter((dato: any) =>
+        dato.numero_serie?.toLowerCase().includes(this.filtro.toLowerCase()) ||
+        dato.equipo.laboratory?.toLowerCase().includes(this.filtro.toLowerCase())
+
+      );
+    } else {
+      this.traer.traer().subscribe({
+        next: (data: any[]) => {
+          this.data = data; // Recupera todos los datos si no hay filtro
+        },
+        error: (error) => {
+          console.error('Error al traer datos:', error);
+        }
+      });
+    }
+  }
 
   // Método para iniciar la edición de un dato
   editarDato(dato: any) {
@@ -161,36 +179,36 @@ export class ErroresComponent {
     doc.setFontSize(12);
 
     if (this.dato) {
-        // Definir el contenido del informe
-        const texto = [
-            `El equipo con número de serie: ${this.dato.numero_serie} sufrió un daño a las ${this.dato.hora_dano} horas de la fecha: ${this.dato.fecha_dano}, cuando se detectó ${this.dato.descripcion}.`,
-            `La reparación se realizó en la fecha: ${this.dato.fecha_cambio} en el laboratorio ${this.dato.equipo.laboratory}, y el estado del equipo es "${this.dato.estado}".`,
-           // `En resumen, el equipo ha tenido un total de daños registrados: ${this.data.length}.`
-        ];
+      // Definir el contenido del informe
+      const texto = [
+        `El equipo con número de serie: ${this.dato.numero_serie} sufrió un daño a las ${this.dato.hora_dano} horas de la fecha: ${this.dato.fecha_dano}, cuando se detectó ${this.dato.descripcion}.`,
+        `La reparación se realizó en la fecha: ${this.dato.fecha_cambio} en el laboratorio ${this.dato.equipo.laboratory}, y el estado del equipo es "${this.dato.estado}".`,
+        // `En resumen, el equipo ha tenido un total de daños registrados: ${this.data.length}.`
+      ];
 
-        // Ajustar el texto automáticamente en el PDF
-        let y = 40; // Coordenada Y inicial
-        texto.forEach(parrafo => {
-            const lines = doc.splitTextToSize(parrafo, 180); // Ajustar el tamaño del texto al ancho de la página
-            lines.forEach((line: string) => { // Especificar el tipo 'string' para 'line'
-                doc.text(line, 14, y);
-                y += 10; // Espaciado entre líneas
-            });
-            y += 10; // Espaciado entre párrafos
-        });
-    } else {
-        const mensaje = 'No se ha seleccionado ningún dato para el informe.';
-        const lines = doc.splitTextToSize(mensaje, 180);
-        let y = 40; // Coordenada Y inicial
+      // Ajustar el texto automáticamente en el PDF
+      let y = 40; // Coordenada Y inicial
+      texto.forEach(parrafo => {
+        const lines = doc.splitTextToSize(parrafo, 180); // Ajustar el tamaño del texto al ancho de la página
         lines.forEach((line: string) => { // Especificar el tipo 'string' para 'line'
-            doc.text(line, 14, y);
-            y += 10; // Espaciado entre líneas
+          doc.text(line, 14, y);
+          y += 10; // Espaciado entre líneas
         });
+        y += 10; // Espaciado entre párrafos
+      });
+    } else {
+      const mensaje = 'No se ha seleccionado ningún dato para el informe.';
+      const lines = doc.splitTextToSize(mensaje, 180);
+      let y = 40; // Coordenada Y inicial
+      lines.forEach((line: string) => { // Especificar el tipo 'string' para 'line'
+        doc.text(line, 14, y);
+        y += 10; // Espaciado entre líneas
+      });
     }
 
     // Guardar el archivo PDF
     doc.save('informe_de_danos.pdf');
-}
+  }
   seleccionarDato(dato: any) {
     this.dato = dato;
   }

@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './laboratorios.component.css'
 })
 export class LaboratoriosComponent {
+  filtro: string = '';
   //listar datos
   data: any[] = [];
   //aregar
@@ -41,18 +42,35 @@ export class LaboratoriosComponent {
       },
     });
   }*/
-  ngOnInit(): void {
-    this.traer.traer().subscribe({
-      next: (data: any[]) => {
-        this.data = data;
-        console.log('Datos recibidos:', this.data);
-      },
-      error: (error) => {
-        console.error('Error al traer datos:', error);
+    ngOnInit(): void {
+      this.traer.traer().subscribe({
+        next: (data: any[]) => {
+          this.data = data;
+          this.aplicarFiltro(); // Aplica el filtro al cargar los datos
+        },
+        error: (error) => {
+          console.error('Error al traer datos:', error);
+        }
+      });
+    }
+  
+    // Método para aplicar el filtro
+    aplicarFiltro() {
+      if (this.filtro) {
+        this.data = this.data.filter((dato: any) =>
+          dato.nombre_lab?.toLowerCase().includes(this.filtro.toLowerCase())
+        );
+      } else {
+        this.traer.traer().subscribe({
+          next: (data: any[]) => {
+            this.data = data; // Recupera todos los datos si no hay filtro
+          },
+          error: (error) => {
+            console.error('Error al traer datos:', error);
+          }
+        });
       }
-    });
-  }
-
+    }
   //agregar datos
   agregarDato() {
     const data = {
