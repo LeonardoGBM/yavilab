@@ -65,8 +65,13 @@
                             <td class="d-flex justify-content-center">
                         </tr>
                     </tbody>
-
-                
+                    <tfoot >
+                        <tr *ngFor="let item of data">
+                            <td>
+                                <i class="bi bi-file-pdf" (click)="generarPDFcompleto()"></i>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
                 <div class="col-md-12 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
