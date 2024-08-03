@@ -24,3 +24,11 @@
 .table tbody th {
     border-top: none;
 }
+
+.descripcion-scroll {
+    max-width: 100px; /* Ajusta el ancho máximo según tus necesidades */
+    overflow: auto;
+    white-space: nowrap; /* Mantiene el texto en una sola línea */
+}
+
+

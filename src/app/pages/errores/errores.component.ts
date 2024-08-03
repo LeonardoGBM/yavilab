@@ -3,8 +3,10 @@ import { SidebarComponent } from "../../layout/sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { LaboratorioService } from '../../service/laboratorio.service';
 import { ErrorService } from '../../service/error.service';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'; // Importar el complemento para autoTable
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-errores',
   standalone: true,
@@ -25,7 +27,7 @@ export class ErroresComponent {
   equipo: any = { id: 0 };
   dato: any;
 
-  datoEditado: any = { numero_serie: '', hora_dano: '',fecha_dano: '', fecha_cambio: '', descripcion: '', estado: '', equipo: ''};
+  datoEditado: any = { numero_serie: '', hora_dano: '', fecha_dano: '', fecha_cambio: '', descripcion: '', estado: '', equipo: '' };
   modoEdicion: boolean = false;
 
   constructor(private traer: ErrorService) { }
@@ -53,9 +55,9 @@ export class ErroresComponent {
       estado: this.estado,
       equipo: { id: this.equipo.id }
     };
-  
+
     console.log('Datos a enviar:', data); // Verifica los datos aquí
-  
+
     this.traer.agregarDato(data).subscribe({
       next: (response) => {
         console.log('Dato agregado', response);
@@ -119,7 +121,7 @@ export class ErroresComponent {
       fecha_cambio: this.datoEditado.fecha_cambio,
       descripcion: this.datoEditado.descripcion,
       estado: this.datoEditado.estado,
-      equipo: { id: this.equipo.laboratory}
+      equipo: { id: this.equipo.laboratory }
     };
 
     this.traer.editarDato(this.datoEditado.id, updatedData).subscribe({
@@ -140,5 +142,56 @@ export class ErroresComponent {
         console.error('Error al editar dato', error);
       }
     });
+  }
+
+  //PDF
+
+  generarPDF() {
+    const doc = new jsPDF();
+
+    // Añadir título
+    doc.setFontSize(18);
+    doc.text('Informe de Daños del Equipo', 14, 20);
+
+    // Añadir fecha
+    doc.setFontSize(12);
+    doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 30);
+
+    // Añadir información de la fila seleccionada
+    doc.setFontSize(12);
+
+    if (this.dato) {
+        // Definir el contenido del informe
+        const texto = [
+            `El equipo con número de serie: ${this.dato.numero_serie} sufrió un daño a las ${this.dato.hora_dano} horas de la fecha: ${this.dato.fecha_dano}, cuando se detectó ${this.dato.descripcion}.`,
+            `La reparación se realizó en la fecha: ${this.dato.fecha_cambio} en el laboratorio ${this.dato.equipo.laboratory}, y el estado del equipo es "${this.dato.estado}".`,
+           // `En resumen, el equipo ha tenido un total de daños registrados: ${this.data.length}.`
+        ];
+
+        // Ajustar el texto automáticamente en el PDF
+        let y = 40; // Coordenada Y inicial
+        texto.forEach(parrafo => {
+            const lines = doc.splitTextToSize(parrafo, 180); // Ajustar el tamaño del texto al ancho de la página
+            lines.forEach((line: string) => { // Especificar el tipo 'string' para 'line'
+                doc.text(line, 14, y);
+                y += 10; // Espaciado entre líneas
+            });
+            y += 10; // Espaciado entre párrafos
+        });
+    } else {
+        const mensaje = 'No se ha seleccionado ningún dato para el informe.';
+        const lines = doc.splitTextToSize(mensaje, 180);
+        let y = 40; // Coordenada Y inicial
+        lines.forEach((line: string) => { // Especificar el tipo 'string' para 'line'
+            doc.text(line, 14, y);
+            y += 10; // Espaciado entre líneas
+        });
+    }
+
+    // Guardar el archivo PDF
+    doc.save('informe_de_danos.pdf');
+}
+  seleccionarDato(dato: any) {
+    this.dato = dato;
   }
 }

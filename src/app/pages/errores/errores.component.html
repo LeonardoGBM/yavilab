@@ -47,9 +47,9 @@
                             <th scope="row">{{i + 1}}</th>
                             <td>{{item.numero_serie}}</td>
                             <td>{{item.hora_dano}}</td>
-                            <td>{{item.fecha_dano}}</td>
-                            <td>{{item.fecha_cambio}}</td>
-                            <td>{{item.descripcion}}</td>
+                            <td class="descripcion-scroll2">{{item.fecha_dano}}</td>
+                            <td class="descripcion-scroll2">{{item.fecha_cambio}}</td>
+                            <td class="descripcion-scroll">{{item.descripcion}}</td>
                             <td>{{item.estado}}</td>
                             <td>{{item.equipo.laboratory}}</td>
                             <td class="d-flex justify-content-center">
@@ -57,8 +57,9 @@
                                     data-bs-target="#editModal" style="margin-right: 20px; color: blue;"></i>
                                 <i class="bi bi-trash-fill" (click)="eliminar(item)"
                                     style="margin-left: 20px; color: red;"></i>
-                                <i class="bi bi-file-earmark-pdf-fill" style="margin-left: 40px; color: red;"></i>
+                                <i class="bi bi-file-earmark-pdf-fill" (click)="seleccionarDato(item)" (click)="generarPDF()" style="margin-left: 40px; color: red;"></i>
                             </td>
+                            <td class="d-flex justify-content-center">
                         </tr>
                     </tbody>
                 </table>
