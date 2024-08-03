@@ -30,15 +30,6 @@ export class ErroresComponent {
 
   constructor(private traer: ErrorService) { }
 
-
-  //traer datos
-  /*ngOnInit(): void {
-    this.traer.traer().subscribe({
-            next: (data: any[]) => {
-        this.data = data;
-      },
-    });
-  }*/
   ngOnInit(): void {
     this.traer.traer().subscribe({
       next: (data: any[]) => {
@@ -90,6 +81,9 @@ export class ErroresComponent {
       }
     });
   }
+  // Condicional para numero de serie
+
+
 
   //eliminar datos
 
@@ -125,6 +119,7 @@ export class ErroresComponent {
       fecha_cambio: this.datoEditado.fecha_cambio,
       descripcion: this.datoEditado.descripcion,
       estado: this.datoEditado.estado,
+      equipo: { id: this.equipo.laboratory}
     };
 
     this.traer.editarDato(this.datoEditado.id, updatedData).subscribe({

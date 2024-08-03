@@ -38,10 +38,8 @@
                             <th scope="col">Fecha cambio</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Equipo</th>
                             <th scope="col">Laboratorio</th>
-                            <th scope="col">Marca</th>
-                            <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
+                            <th scope="col" class="d-flex justify-content-center">Editar / Eliminar / PDF</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,13 +51,14 @@
                             <td>{{item.fecha_cambio}}</td>
                             <td>{{item.descripcion}}</td>
                             <td>{{item.estado}}</td>
-                            <td>{{item.equipo.id}}</td>
                             <td>{{item.equipo.laboratory}}</td>
-                            <td>{{item.equipo.marca}}</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
-                                    data-bs-toggle="modal" data-bs-target="#editModal"
-                                    style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill"
-                                    style="margin-left: 10px; color: red;"></i></td>
+                            <td class="d-flex justify-content-center">
+                                <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
+                                    data-bs-target="#editModal" style="margin-right: 20px; color: blue;"></i>
+                                <i class="bi bi-trash-fill" (click)="eliminar(item)"
+                                    style="margin-left: 20px; color: red;"></i>
+                                <i class="bi bi-file-earmark-pdf-fill" style="margin-left: 40px; color: red;"></i>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -101,9 +100,8 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
                             serie:</label>
-                        <input type="text" [(ngModel)]="numero" name="numSerie"
-                            class="form-control border rounded-1" id="numSerie"
-                            placeholder="Ingrese el numero de serie"
+                        <input type="text" [(ngModel)]="numero" name="numSerie" class="form-control border rounded-1"
+                            id="numSerie" placeholder="Ingrese el numero de serie"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
@@ -116,8 +114,8 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
                             daños:</label>
-                        <input type="date" [(ngModel)]="fechadano" name="fecha"
-                            class="form-control border rounded-1" id="fecha" placeholder="Ingrese la fecha de daño"
+                        <input type="date" [(ngModel)]="fechadano" name="fecha" class="form-control border rounded-1"
+                            id="fecha" placeholder="Ingrese la fecha de daño"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
@@ -142,15 +140,98 @@
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="equipo" style="font-size: 13px; font-family: Verdana; color: black;">Equipo:</label>
-                        <input type="number" [(ngModel)]="equipo.id" name="equipo.id" class="form-control border rounded-1"
-                            id="equipo" placeholder="Ingrese el ID del equipo"
+                        <label for="estado"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                        <select [(ngModel)]="equipo.id" name="equipo" id="equipo" class="form-control border rounded-1"
+                            id="estado" placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option [value]="1">Xian</option>
+                            <option [value]="2">Gori</option>
+                            <option [value]="3">Toolose</option>
+                            <option [value]="3">Cenepa</option>
+                            <option [value]="3">Sarasota</option>
+
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Editar -->
+
+<div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="editModalLabel" aria-hidden="true">
+    <form (ngSubmit)="guardarEdicion()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="editModalLabel">Editar Daños</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group pt-0 mb-3">
+                        <label for="nombre" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
+                            serie:</label>
+                        <input type="text" [(ngModel)]="datoEditado.numero_serie" name="nombreEditado"
+                            class="form-control border rounded-1" id="nombre" placeholder="Ingrese el nombre"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de
+                            daño:</label>
+                        <input type="time" [(ngModel)]="datoEditado.hora_dano" name="hora"
+                            class="form-control border rounded-1" id="monitores"
+                            placeholder="Ingrese la marca del monitor"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="fecha daño" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
+                            daño:</label>
+                        <input type="date" [(ngModel)]="datoEditado.fecha_dano" name="fecha"
+                            class="form-control border rounded-1" id="cpu" placeholder="Ingrese la marca del CPU"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
+                            cambio:</label>
+                        <input type="date" [(ngModel)]="datoEditado.fecha_cambio" name="fechacambio"
+                            class="form-control border rounded-1" id="teclado"
+                            placeholder="Ingrese la marca del teclado"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="mouse"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Descripcion:</label>
+                        <input type="text" [(ngModel)]="datoEditado.descripcion" name="descripcion"
+                            class="form-control border rounded-1" id="mouse" placeholder="Ingrese la marca del mouse"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="Laboratorio"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
+                        <input type="text" [(ngModel)]="datoEditado.estado" name="estado"
+                            class="form-control border rounded-1" id="audifonos"
+                            placeholder="Ingrese la marca de los audifonos"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="laboratorio"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                        <input type="text" [(ngModel)]="datoEditado.equipo.laboratory" name="laboratorio" readonly
+                            class="form-control border rounded-1" id="audifonos"
+                            placeholder="Ingrese la marca de los audifonos"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
                 </div>
             </div>
         </div>
