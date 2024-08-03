@@ -212,4 +212,36 @@ export class ErroresComponent {
   seleccionarDato(dato: any) {
     this.dato = dato;
   }
+
+  // imprimir toda la tabla del pdf con todos loas datos
+  generarPDFcompleto() {
+    const doc = new jsPDF();
+
+    // Añadir título
+    doc.setFontSize(18);
+    doc.text('Informe Completo de Daños', 14, 20);
+
+    // Añadir fecha
+    doc.setFontSize(12);
+    doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 30);
+
+    // Añadir tabla con todos los datos de `this.data`
+    (doc as any).autoTable({
+        startY: 40,
+        head: [['#', 'Número de serie', 'Hora daños', 'Fecha daños', 'Fecha cambio', 'Descripción', 'Estado', 'Laboratorio']],
+        body: this.data.map((item, index) => [
+            index + 1,
+            item.numero_serie,
+            item.hora_dano,
+            item.fecha_dano,
+            item.fecha_cambio,
+            item.descripcion,
+            item.estado,
+            item.equipo.laboratory
+        ]),
+    });
+
+    // Guardar el archivo PDF
+    doc.save('informe_completo_de_danos.pdf');
+}
 }
