@@ -32,43 +32,32 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
+                            <th scope="col">Numero serie</th>
+                            <th scope="col">Hora daños</th>
                             <th scope="col">Fecha daños</th>
-                            <th scope="col">Modelo</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Laboratorio</th>
-                            <th scope="col">Equipos_id</th>
-                            <th scope="col">Daños_id</th>
-                            <th scope="col">Descripción</th>
                             <th scope="col">Fecha cambio</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Equipo</th>
+                            <th scope="col">Laboratorio</th>
+                            <th scope="col">Marca</th>
                             <th scope="col" class="d-flex justify-content-center">Editar / Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>23/ju/2024</td>
-                            <td>Sony</td>
-                            <td>Funcional</td>
-                            <td>Xian</td>
-                            <td>1</td>
-                            <td>3</td>
-                            <td>Se cambio el teclado</td>
-                            <td>23/jul/2024</td>
+                        <tr *ngFor="let item of data, let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{item.numero_serie}}</td>
+                            <td>{{item.hora_dano}}</td>
+                            <td>{{item.fecha_dano}}</td>
+                            <td>{{item.fecha_cambio}}</td>
+                            <td>{{item.descripcion}}</td>
+                            <td>{{item.estado}}</td>
+                            <td>{{item.equipo.id}}</td>
+                            <td>{{item.equipo.laboratory}}</td>
+                            <td>{{item.equipo.marca}}</td>
                             <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
-                                    style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill"
-                                    style="margin-left: 10px; color: red;"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>20/ago/2024</td>
-                            <td>Alcatel</td>
-                            <td>Funcional</td>
-                            <td>Cenepa</td>
-                            <td>3</td>
-                            <td>2</td>
-                            <td>Se cambio el teclado</td>
-                            <td>23/jul/2023</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square"
+                                    data-bs-toggle="modal" data-bs-target="#editModal"
                                     style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill"
                                     style="margin-left: 10px; color: red;"></i></td>
                         </tr>
@@ -100,62 +89,70 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar daño</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <form (submit)="agregarDato()">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar daño</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group pt-0 mb-3">
                         <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
                             serie:</label>
-                        <input type="text" name="numSerie" class="form-control border rounded-1" id="numSerie"
+                        <input type="text" [(ngModel)]="numero" name="numSerie"
+                            class="form-control border rounded-1" id="numSerie"
                             placeholder="Ingrese el numero de serie"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de
                             daños:</label>
-                        <input type="time" name="hora" class="form-control border rounded-1" id="hora"
-                            placeholder="Ingrese la hora"
+                        <input type="time" [(ngModel)]="horadano" name="hora" class="form-control border rounded-1"
+                            id="hora" placeholder="Ingrese la hora"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
                             daños:</label>
-                        <input type="date" name="fecha" class="form-control border rounded-1" id="fecha"
-                            placeholder="Ingrese la fecha de daño"
+                        <input type="date" [(ngModel)]="fechadano" name="fecha"
+                            class="form-control border rounded-1" id="fecha" placeholder="Ingrese la fecha de daño"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="fechaCambio" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
                             cambio:</label>
-                        <input type="date" name="fechaCambio" class="form-control border rounded-1" id="fechaCambio"
+                        <input type="date" [(ngModel)]="fechacambio" name="fechaCambio"
+                            class="form-control border rounded-1" id="fechaCambio"
                             placeholder="Ingrese la fecha de cambio"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="descripcion"
                             style="font-size: 13px; font-family: Verdana; color: black;">Descripción:</label>
-                        <input type="text" name="descripcion" class="form-control border rounded-1" id="descripcion"
-                            placeholder="Ingrese el estado"
+                        <input type="text" [(ngModel)]="descripcion" name="descripcion"
+                            class="form-control border rounded-1" id="descripcion" placeholder="Ingrese la descripción"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <input type="text" name="estado" class="form-control border rounded-1" id="estado"
-                            placeholder="Ingrese el estado"
+                        <input type="text" [(ngModel)]="estado" name="estado" class="form-control border rounded-1"
+                            id="estado" placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Añadir</button>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="equipo" style="font-size: 13px; font-family: Verdana; color: black;">Equipo:</label>
+                        <input type="number" [(ngModel)]="equipo.id" name="equipo.id" class="form-control border rounded-1"
+                            id="equipo" placeholder="Ingrese el ID del equipo"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
