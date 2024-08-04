@@ -110,7 +110,8 @@ export class ErroresComponent {
     if (this.filtro) {
       this.data = this.data.filter((dato: any) =>
         dato.numero_serie?.toLowerCase().includes(this.filtro.toLowerCase()) ||
-        dato.equipo.laboratory?.toLowerCase().includes(this.filtro.toLowerCase())
+        dato.equipo.laboratory?.toLowerCase().includes(this.filtro.toLowerCase()) ||
+        dato.estado?.toLowerCase().includes(this.filtro.toLowerCase()) 
 
       );
     } else {
