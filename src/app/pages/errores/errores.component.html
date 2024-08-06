@@ -18,8 +18,8 @@
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
                 <div>
-                    <button type="button" class="pdf-button">
-                        <i class="bi bi-file-pdf" (click)="generarPDFcompleto()"></i>
+                    <button type="button" class="pdf-button" (click)="generarPDFcompleto()">
+                        <i class="bi bi-file-pdf"></i>
                         Descargar PDF
                     </button>
                 </div>
@@ -66,9 +66,9 @@
                         </tr>
                     </tbody>
                     <tfoot >
-                        <tr *ngFor="let item of data">
-                            <td>
-                                <i class="bi bi-file-pdf" (click)="generarPDFcompleto()"></i>
+                        <tr>
+                            <td colspan="9" class="text-center">
+                                <i class="bi bi-file-pdf" (click)="generarPDFcompleto()" style="cursor: pointer; color: red;"></i>
                             </td>
                         </tr>
                     </tfoot>
