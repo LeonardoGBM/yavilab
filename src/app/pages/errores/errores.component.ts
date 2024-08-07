@@ -111,7 +111,7 @@ export class ErroresComponent {
       this.data = this.data.filter((dato: any) =>
         dato.numero_serie?.toLowerCase().includes(this.filtro.toLowerCase()) ||
         dato.equipo.laboratory?.toLowerCase().includes(this.filtro.toLowerCase()) ||
-        dato.estado?.toLowerCase().includes(this.filtro.toLowerCase()) 
+        dato.estado?.toLowerCase().includes(this.filtro.toLowerCase())
 
       );
     } else {
@@ -167,48 +167,78 @@ export class ErroresComponent {
 
   generarPDF() {
     const doc = new jsPDF();
+    const logoUrl = './../assets/img/logoazul-removebg-preview.png'; // Ruta al logotipo
 
-    // Añadir título
-    doc.setFontSize(18);
-    doc.text('Informe de Daños del Equipo', 14, 20);
+    fetch(logoUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const imgData = reader.result as string;
 
-    // Añadir fecha
-    doc.setFontSize(12);
-    doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 30);
+          // Añadir el logotipo
+          doc.addImage(imgData, 'PNG', 10, 10, 30, 20); // Ajustar tamaño y posición
 
-    // Añadir información de la fila seleccionada
-    doc.setFontSize(12);
+          // Añadir título
+          doc.setFontSize(18);
+          doc.text('Informe de Daños del Equipo', 70, 30); // Ajustar posición
 
-    if (this.dato) {
-      // Definir el contenido del informe
-      const texto = [
-        `El equipo con número de serie: ${this.dato.numero_serie} sufrió un daño a las ${this.dato.hora_dano} horas de la fecha: ${this.dato.fecha_dano}, cuando se detectó ${this.dato.descripcion}.`,
-        `La reparación se realizó en la fecha: ${this.dato.fecha_cambio} en el laboratorio ${this.dato.equipo.laboratory}, y el estado del equipo es "${this.dato.estado}".`,
-        // `En resumen, el equipo ha tenido un total de daños registrados: ${this.data.length}.`
-      ];
+          // Añadir fecha
+          doc.setFontSize(12);
+          doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 40);
 
-      // Ajustar el texto automáticamente en el PDF
-      let y = 40; // Coordenada Y inicial
-      texto.forEach(parrafo => {
-        const lines = doc.splitTextToSize(parrafo, 180); // Ajustar el tamaño del texto al ancho de la página
-        lines.forEach((line: string) => { // Especificar el tipo 'string' para 'line'
-          doc.text(line, 14, y);
-          y += 10; // Espaciado entre líneas
-        });
-        y += 10; // Espaciado entre párrafos
+          // Añadir información de la fila seleccionada
+          doc.setFontSize(12);
+
+          if (this.dato) {
+            // Definir el contenido del informe
+            const texto = [
+              `**Informe de Daño y Reparación de Equipos**`,
+              `**Equipo:**`,
+              `El equipo con número de serie **${this.dato.numero_serie}** sufrió un daño el día **${this.dato.fecha_dano}** a las **${this.dato.hora_dano}** horas. El incidente fue identificado cuando se detectó el siguiente problema: **${this.dato.descripcion}**.`,
+              `**Reparación:**`,
+              `La reparación del equipo se llevó a cabo el día **${this.dato.fecha_cambio}** en el laboratorio **${this.dato.equipo.laboratory}**. El proceso de reparación fue documentado cuidadosamente, y el equipo fue evaluado para asegurar que cumpla con los estándares operativos.`,
+              `**Estado Actual:**`,
+              `Después de la reparación, el equipo fue sometido a pruebas adicionales para confirmar su funcionalidad. Actualmente, el estado del equipo es: **"${this.dato.estado}"**. Este estado refleja tanto la operatividad del equipo como las medidas preventivas tomadas para evitar futuros incidentes.`,
+              `**Resumen de Incidentes:**`,
+              `Hasta la fecha, el equipo ha registrado un total de **${this.data.length}** incidentes de daño. Cada uno de estos ha sido atendido con las medidas correctivas necesarias, y se han documentado para futuras referencias.`,
+              `**Conclusión:**`,
+              `El equipo con número de serie **${this.dato.numero_serie}** ha sido completamente restaurado a su estado funcional y está listo para su uso en operaciones de laboratorio. Se recomienda continuar con el monitoreo regular y realizar mantenimiento preventivo para prolongar la vida útil del equipo.`,
+              `**Responsable:**`,
+              `El informe fue generado por **[Nombre del Responsable]** el día **[Fecha de Generación del Informe]**.`,
+              `**Firma:**`,
+              `_____________________
+              [Nombre del Responsable]`
+            ];
+
+            // Ajustar el texto automáticamente en el PDF
+            let y = 50; // Coordenada Y inicial después del logotipo y título
+            texto.forEach(parrafo => {
+              const lines = doc.splitTextToSize(parrafo, 180); // Ajustar el tamaño del texto al ancho de la página
+              lines.forEach((line: string) => {
+                doc.text(line, 14, y);
+                y += 10; // Espaciado entre líneas
+              });
+              y += 10; // Espaciado entre párrafos
+            });
+          } else {
+            const mensaje = 'No se ha seleccionado ningún dato para el informe.';
+            const lines = doc.splitTextToSize(mensaje, 180);
+            let y = 50; // Coordenada Y inicial
+            lines.forEach((line: string) => {
+              doc.text(line, 14, y);
+              y += 10; // Espaciado entre líneas
+            });
+          }
+
+          // Guardar el archivo PDF
+          doc.save('informe_de_danos.pdf');
+        };
+        reader.readAsDataURL(blob); // Convertir blob a base64
+      })
+      .catch(error => {
+        console.error('Error al cargar la imagen:', error);
       });
-    } else {
-      const mensaje = 'No se ha seleccionado ningún dato para el informe.';
-      const lines = doc.splitTextToSize(mensaje, 180);
-      let y = 40; // Coordenada Y inicial
-      lines.forEach((line: string) => { // Especificar el tipo 'string' para 'line'
-        doc.text(line, 14, y);
-        y += 10; // Espaciado entre líneas
-      });
-    }
-
-    // Guardar el archivo PDF
-    doc.save('informe_de_danos.pdf');
   }
   seleccionarDato(dato: any) {
     this.dato = dato;
@@ -217,32 +247,49 @@ export class ErroresComponent {
   // imprimir toda la tabla del pdf con todos loas datos
   generarPDFcompleto() {
     const doc = new jsPDF();
+    const logoUrl = './../assets/img/logoazul-removebg-preview.png'; // Ruta al logotipo
 
-    // Añadir título
-    doc.setFontSize(18);
-    doc.text('Informe Completo de Daños', 14, 20);
+    fetch(logoUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const imgData = reader.result as string;
 
-    // Añadir fecha
-    doc.setFontSize(12);
-    doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 30);
+          // Añadir el logotipo
+          doc.addImage(imgData, 'PNG', 10, 10, 30, 20); // Ajustar tamaño y posición
 
-    // Añadir tabla con todos los datos de `this.data`
-    (doc as any).autoTable({
-        startY: 40,
-        head: [['#', 'Número de serie', 'Hora daños', 'Fecha daños', 'Fecha cambio', 'Descripción', 'Estado', 'Laboratorio']],
-        body: this.data.map((item, index) => [
-            index + 1,
-            item.numero_serie,
-            item.hora_dano,
-            item.fecha_dano,
-            item.fecha_cambio,
-            item.descripcion,
-            item.estado,
-            item.equipo.laboratory
-        ]),
-    });
+          // Añadir título
+          doc.setFontSize(18);
+          doc.text('Informe de Daños del Equipo', 70, 30); // Ajustar posición
 
-    // Guardar el archivo PDF
-    doc.save('informe_completo_de_danos.pdf');
-}
+          // Añadir fecha
+          doc.setFontSize(12);
+          doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 40);
+
+          // Añadir tabla con todos los datos de `this.data`
+          (doc as any).autoTable({
+            startY: 50,
+            head: [['#', 'Número de serie', 'Hora daños', 'Fecha daños', 'Fecha cambio', 'Descripción', 'Estado', 'Laboratorio']],
+            body: this.data.map((item, index) => [
+              index + 1,
+              item.numero_serie,
+              item.hora_dano,
+              item.fecha_dano,
+              item.fecha_cambio,
+              item.descripcion,
+              item.estado,
+              item.equipo.laboratory
+            ]),
+          });
+
+          // Guardar el archivo PDF
+          doc.save('informe_completo_de_danos.pdf');
+        };
+        reader.readAsDataURL(blob); // Convertir blob a base64
+      })
+      .catch(error => {
+        console.error('Error al cargar la imagen:', error);
+      });
+  }
 }
