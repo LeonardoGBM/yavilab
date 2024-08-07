@@ -59,3 +59,22 @@ input::placeholder {
 .contenedor1 .form-control {
   padding-right: 30px;
 }
+
+/* Estilos para la alerta personalizada */
+.custom-alert {
+  background-color: #f4d6d2;
+  color: #691911;
+  font-size: 12px; /* Ajusta el tamaño del texto */
+  padding: 8px 12px; /* Ajusta el tamaño del padding */
+  margin: 0; /* Opcional: Elimina márgenes */
+  border-radius: 4px; /* Opcional: Ajusta el radio de los bordes */
+}
+
+.text-alert {
+  color: red;
+  background-color: #f5e5e3;
+  font-size: 13px;
+  font-family: Oswald;
+  padding: 4px 12px;
+  border-radius: 4px;
+}

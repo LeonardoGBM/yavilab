@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-md-12 d-flex justify-content-center align-items-center">
         <div class="p-5 rounded-5" style="background:rgba(76, 152, 244, 0.856);">
-          <form>
+          <form class="form-custom" [formGroup]="formLogin" (ngSubmit)="iniciarSesion()">
             <!-- Imagen de avatar -->
             <div class="d-flex justify-content-center mb-4">
               <img src="../../assets/img/inicio.jpg" alt="Avatar"
@@ -15,29 +15,34 @@
             </div>
             <div class="form-group pt-0 mb-3">
               <label for="email" style="font-size: 13px; font-family: Verdana; color: white;">Correo:</label>
-              <input type="email" name="email" class="form-control border rounded-1"
+              <input type="email" formControlName="email" name="email" class="form-control border rounded-1"
                 placeholder="Ingrese el correo electrónico"
-                style=" font-size: 12px; font-family: Verdana; background-color: white">
+                style="font-size: 12px; font-family: Verdana; background-color: white">
+              <div *ngIf="formLogin.get('email')?.touched && formLogin.get('email')?.invalid" class="text-alert">
+                <div *ngIf="formLogin.get('email')?.errors?.['required']">El correo es requerido.</div>
+                <div *ngIf="formLogin.get('email')?.errors?.['email']">Ingrese un correo electrónico válido.</div>
+              </div>
             </div>
             <div class="form-group">
               <label for="contrasena" style="font-size: 13px; font-family: Verdana; color: white;">Contraseña:</label>
               <div class="contenedor1">
-                <input type="password" name="contrasena" class="form-control border rounded-1" id="contrasena"
+                <input type="password" formControlName="contrasena" class="form-control border rounded-1" id="contrasena"
                   placeholder="Ingrese la contraseña"
                   style="font-size: 12px; font-family: Verdana; background-color: white">
                 <i class="bi bi-eye icono" id="toggleEye" (click)="togglePasswordVisibility()"></i>
               </div>
+              <div *ngIf="formLogin.get('contrasena')?.touched && formLogin.get('contrasena')?.invalid" class="text-alert">
+                <div *ngIf="formLogin.get('contrasena')?.errors?.['required']">La contraseña es requerida.</div>
+              </div>
             </div>
             <div class="d-flex justify-content-center pt-5">
-              <button type="button" class="btn btn-primary"
+              <button type="submit" class="btn btn-primary"
                 style="width: 250px; font-size: 90%; padding: 10px; border-radius: 5px; font-family: Verdana;"
-                (click)="login()">Iniciar Sesión</button>
+                [disabled]="formLogin.invalid">Iniciar Sesión</button>
             </div>
-            <!--<div class="d-flex justify-content-center pt-4">
-              <button type="button" class="btn btn-primary"
-                style="width: 250px; font-size: 90%; padding: 5px; border-radius: 5px; font-family: Verdana;"
-                (click)="redirectToRegister()">Registrarse</button>
-            </div>!--->
+            <div *ngIf="showAlert" class="alert custom-alert mt-3">
+              <span><b>Acceso inválido. Por favor, inténtelo otra vez.</b></span>
+            </div>
           </form>
         </div>
       </div>

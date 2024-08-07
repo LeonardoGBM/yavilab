@@ -19,11 +19,11 @@ export class UsuarioService {
   }
 
   //agregar datos
-  agregarDato(data: any): Observable<any> {
-    return this.http.post<any>(this.api, data).pipe(
-      catchError(this.handleError)
-    );
-  }
+  //agregarDato(data: any): Observable<any> {
+    //return this.http.post<any>(this.api, data).pipe(
+      //catchError(this.handleError)
+    //);
+  //}
 
   // Manejo de errores genérico
   private handleError(error: any) {

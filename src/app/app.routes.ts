@@ -11,11 +11,13 @@ import { LabToolouseComponent } from './pages/lab-toolouse/lab-toolouse.componen
 import { LabSarasotaComponent } from './pages/lab-sarasota/lab-sarasota.component';
 import { LabCenepaComponent } from './pages/lab-cenepa/lab-cenepa.component';
 import { UsuarioComponent } from './pages/usuarios/usuario.component';
+import { authGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
     
-    { path: '', component: LoginComponent},
-    { path: 'dashboard', component: DashboardComponent},
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent},
+    { path: 'dashboard', component: DashboardComponent, canActivate:[authGuard]},
     { path: 'lab', component: LaboratoriosComponent},
     { path: 'equipo', component: EquiposComponent},
     { path: 'register', component: RegisterComponent},

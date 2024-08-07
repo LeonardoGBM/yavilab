@@ -1,21 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { SidebarComponent } from '../../layout/sidebar/sidebar.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsuarioService } from '../../service/usuario.service';
+import { AccesoService } from '../../service/acceso.service';
+import { Router } from '@angular/router';
+import { Usuario } from '../../interfaces/Usuario';
 @Component({
   selector: 'app-usuario',
   standalone: true,
-  imports: [SidebarComponent, CommonModule, HttpClientModule, FormsModule,],
+  imports: [SidebarComponent, CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   templateUrl: './usuario.component.html',
   styleUrl: './usuario.component.css'
 })
 export class UsuarioComponent {
+
+  private accesoService = inject(AccesoService);
+  private router = inject(Router);
+  public formBuild = inject(FormBuilder);
+
+  public formRegistro: FormGroup = this.formBuild.group({
+    nombre: ["", Validators.required],
+    apellido: ["", Validators.required],
+    email: ["", [Validators.required, Validators.email]],
+    contrasena: ["", Validators.required],
+    rol: ["", Validators.required]
+  })
+
+  registrarse(){
+    if (this.formRegistro.invalid) return;
+
+    const objeto : Usuario = {
+      nombre: this.formRegistro.value.nombre,
+      apellido: this.formRegistro.value.apellido,
+      email: this.formRegistro.value.email,
+      contrasena: this.formRegistro.value.contrasena,
+      rol: this.formRegistro.value.rol
+    }
+
+    this.accesoService.registrarse(objeto).subscribe({
+      next: (data) => {
+        if (data) {
+          alert("Usuario añadido")
+        } else {
+          alert("No se pudo registrar")
+        }
+      },
+      error: (error) => {
+        console.log("Error de registro:", error);
+      }
+    })
+  }
+
+
+
+
   filtro: string = '';
   //listar datos
   data: any[] = [];
-  //aregar
+  //agregar
   nombre: string = '';
   apellido: string = '';
   email: string = '';
@@ -78,7 +122,7 @@ export class UsuarioComponent {
       });
     }
   }
-  //agregar datos
+  /*agregar datos
   agregarDato() {
     const data = {
       nombre: this.nombre,
@@ -105,7 +149,7 @@ export class UsuarioComponent {
         }
       });
     });
-  }
+  } */
 
   //eliminar datos
 
