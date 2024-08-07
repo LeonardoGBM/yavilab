@@ -17,7 +17,13 @@
                     <i class="bi bi-funnel position-absolute"
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
-                
+                <div>
+                    <button type="button" class="btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        <i class="bi bi-plus"></i>
+                        Agregar
+                    </button>
+                </div>
+
             </div>
             <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(14, 122, 255, 0.2);">
                 <table class="table table-hover table-sm mt-2 mb-2 text-center" style="font-size: 14px;">
@@ -34,28 +40,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>10376</td>
-                            <td>Teclado</td>
-                            <td>Dell</td>
-                            <td>Optiplex 9020</td>
-                            <td>Funcional</td>
-                            <td>xian</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>10422</td>
-                            <td>Monitor</td>
-                            <td>Dell</td>
-                            <td>Optiplex 9020</td>
-                            <td>Funcional</td>
-                            <td>Gori</td>
-                            <td class="d-flex justify-content-center"><i class="bi bi-pencil-square" style="margin-right: 40px; color: blue;"></i><i class="bi bi-trash-fill" style="margin-left: 10px; color: red;"></i></td>
+                        <tr *ngFor="let item of data, let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{ item.numero_serie }}</td>
+                            <td>{{ item.descripcion_equipo}}</td>
+                            <td>{{ item.marca }}</td>
+                            <td>{{ item.modelo }}</td>
+                            <td>{{ item.estado }}</td>
+                            <td>{{ item.laboratory }}</td>
+                            <td>{{ item.laboratorio.id}}</td>
+                            <td>{{ item.laboratorio.nombre_lab}}</td>
+
+                            <td class="d-flex justify-content-center">
+                                <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
+                                    data-bs-target="#editModal" style="margin-right: 40px; color: blue;"></i>
+                                <i class="bi bi-trash-fill" (click)="eliminar(item)"
+                                    style="margin-left: 10px; color: red;"></i>
+                            </td>
                         </tr>
                     </tbody>
-                </table>                
+                </table>
                 <div class="col-md-12 d-flex justify-content-center">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -80,68 +84,77 @@
     </div>
 </div>
 
-<!-- Modal 
+<!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar equipo</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
+    <form (submit)="agregarDato()">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar equipo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
                     <div class="form-group pt-0 mb-3">
                         <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
                             serie:</label>
-                        <input type="text" name="numSerie" class="form-control border rounded-1" id="numSerie"
-                            placeholder="Ingrese el numero de serie"
+                        <input type="text" [(ngModel)]="numero" name="numSerie" class="form-control border rounded-1"
+                            id="numSerie" placeholder="Ingrese el numero de serie"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="desEquipo" style="font-size: 13px; font-family: Verdana; color: black;">Descripción
                             del equipo:</label>
-                        <input type="text" name="desEquipo" class="form-control border rounded-1" id="desEquipo"
+                        <input type="text" [(ngModel)]="descripcion" name="desEquipo"
+                            class="form-control border rounded-1" id="desEquipo"
                             placeholder="Ingrese la descripción del equipo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="marca" style="font-size: 13px; font-family: Verdana; color: black;">Marca:</label>
-                        <input type="text" name="marca" class="form-control border rounded-1" id="marca"
-                            placeholder="Ingrese la marca"
+                        <input type="text" [(ngModel)]="marca" name="marca" class="form-control border rounded-1"
+                            id="marca" placeholder="Ingrese la marca"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="modelo" style="font-size: 13px; font-family: Verdana; color: black;">Modelo:</label>
-                        <input type="text" name="modelo" class="form-control border rounded-1" id="modelo"
-                            placeholder="Ingrese el modelo"
+                        <input type="text" [(ngModel)]="modelo" name="modelo" class="form-control border rounded-1"
+                            id="modelo" placeholder="Ingrese el modelo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <input type="text" name="estado" class="form-control border rounded-1" id="estado"
-                            placeholder="Ingrese el estado"
+                        <input type="text" [(ngModel)]="estado" name="estado" class="form-control border rounded-1"
+                            id="estado" placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="labo" style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
-                        <select class="form-select" aria-label="Default select example"
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                        <input type="text" [(ngModel)]="lab" name="laboratory" class="form-control border rounded-1"
+                            id="estado" placeholder="Ingrese el estado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option selected>Elije un laboratorio</option>
-                            <option value="1">Xian</option>
-                            <option value="2">Gori</option>
-                            <option value="3">Toolouse</option>
-                            <option value="3">Sarasota</option>
-                            <option value="3">Cenepa</option>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="labo"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                            <select [(ngModel)]="laboratorio.id" name="lab" id="lab" class="form-control border rounded-1"
+                            id="estado" placeholder="Ingrese el estado"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option [value]="1">Xian</option>
+                            <option [value]="2">Gori</option>
+                            <option [value]="3">Toolose</option>
+                            <option [value]="4">Cenepa</option>
+                            <option [value]="5">Sarasota</option>
                         </select>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Añadir</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
+
 </div>
--->
