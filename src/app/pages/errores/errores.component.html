@@ -13,7 +13,8 @@
             <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4 shadow-sm"
                 style="background-color: rgba(14, 122, 255, 0.2);">
                 <div class="position-relative" style="width: 300px; margin-left: 20px;">
-                    <input type="text" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()" class="form-control" placeholder="Filtros" style="padding-right: 30px;">
+                    <input type="text" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()" class="form-control"
+                        placeholder="Filtros" style="padding-right: 30px;">
                     <i class="bi bi-funnel position-absolute"
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
@@ -24,12 +25,19 @@
                     </button>
                 </div>
                 <div>
+                    <button type="button" class="excel-button" (click)="generarExcelCompleto()" >
+                        <i class="bi bi-file-excel"></i>
+                        Descargar Excel
+                    </button>
+                </div>
+                <div>
                     <button type="button" class="btn-custom" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <i class="bi bi-plus"></i>
                         Agregar
                     </button>
                 </div>
             </div>
+
             <div class="col-md-11 mt-5 rounded-4 shadow-sm p-4" style="background-color: rgba(14, 122, 255, 0.2);">
                 <table class="table table-hover table-sm mt-2 mb-2 text-center" style="font-size: 13px;">
                     <thead>
@@ -54,13 +62,14 @@
                             <td class="descripcion-scroll2">{{item.fecha_cambio}}</td>
                             <td class="descripcion-scroll">{{item.descripcion}}</td>
                             <td>{{item.estado}}</td>
-                            <td>{{item.equipo.laboratory}}</td>
+                            <td>{{item.laboratorio}}</td>
                             <td class="d-flex justify-content-center">
                                 <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
                                     data-bs-target="#editModal" style="margin-right: 20px; color: blue;"></i>
                                 <i class="bi bi-trash-fill" (click)="eliminar(item)"
                                     style="margin-left: 20px; color: red;"></i>
-                                <i class="bi bi-file-earmark-pdf-fill" (click)="seleccionarDato(item)" (click)="generarPDF()" style="margin-left: 40px; color: red;"></i>
+                                <i class="bi bi-file-earmark-pdf-fill" (click)="seleccionarDato(item)"
+                                    (click)="generarPDF()" style="margin-left: 40px; color: red;"></i>
                             </td>
                             <td class="d-flex justify-content-center">
                         </tr>
@@ -74,9 +83,9 @@
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="">1</a></li>
+                            <li class="page-item"><a class="page-link" href="">2</a></li>
+                            <li class="page-item"><a class="page-link" href="">3</a></li>
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
@@ -104,18 +113,18 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
                             serie:</label>
-                        <input type="number" formControlName="numero" class="form-control border rounded-1"
+                        <input type="number" formControlName="numero_serie" class="form-control border rounded-1"
                             id="numSerie" placeholder="Ingrese el numero de serie"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('numero')?.invalid && form.get('numero')?.touched" class="text-alert">
+                        <div *ngIf="form.get('numero_serie')?.invalid && form.get('numero_serie')?.touched" class="text-alert">
                             Numero de serie es requerido.
                         </div>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de
                             daños:</label>
-                        <input type="time" formControlName="horadano" class="form-control border rounded-1"
-                            id="hora" placeholder="Ingrese la hora"
+                        <input type="time" formControlName="hora_dano" class="form-control border rounded-1" id="hora"
+                            placeholder="Ingrese la hora"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                         <div *ngIf="form.get('horadano')?.invalid && form.get('horadano')?.touched" class="text-alert">
                             Hora de daño es requerida.
@@ -124,20 +133,22 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
                             daños:</label>
-                        <input type="date" formControlName="fechadano" class="form-control border rounded-1"
-                            id="fecha" placeholder="Ingrese la fecha de daño"
+                        <input type="date" formControlName="fecha_dano" class="form-control border rounded-1" id="fecha"
+                            placeholder="Ingrese la fecha de daño"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('fechadano')?.invalid && form.get('fechadano')?.touched" class="text-alert">
+                        <div *ngIf="form.get('fechadano')?.invalid && form.get('fechadano')?.touched"
+                            class="text-alert">
                             Fecha de daño es requerida.
                         </div>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="fechaCambio" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
                             cambio:</label>
-                        <input type="date" formControlName="fechacambio" class="form-control border rounded-1"
+                        <input type="date" formControlName="fecha_cambio" class="form-control border rounded-1"
                             id="fechaCambio" placeholder="Ingrese la fecha de cambio"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('fechacambio')?.invalid && form.get('fechacambio')?.touched" class="text-alert">
+                        <div *ngIf="form.get('fechacambio')?.invalid && form.get('fechacambio')?.touched"
+                            class="text-alert">
                             Fecha de cambio es requerida.
                         </div>
                     </div>
@@ -147,14 +158,15 @@
                         <input type="text" formControlName="descripcion" class="form-control border rounded-1"
                             id="descripcion" placeholder="Ingrese la descripción"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('descripcion')?.invalid && form.get('descripcion')?.touched" class="text-alert">
+                        <div *ngIf="form.get('descripcion')?.invalid && form.get('descripcion')?.touched"
+                            class="text-alert">
                             Descripción es requerida.
                         </div>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <input type="text" formControlName="estado" class="form-control border rounded-1"
-                            id="estado" placeholder="Ingrese el estado">
+                        <input type="text" formControlName="estado" class="form-control border rounded-1" id="estado"
+                            placeholder="Ingrese el estado">
                         <div *ngIf="form.get('estado')?.invalid && form.get('estado')?.touched" class="text-alert">
                             Estado es requerido.
                         </div>
@@ -162,15 +174,16 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="equipo"
                             style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
-                        <select formControlName="equipo" id="equipo" class="form-control border rounded-1"
+                        <select formControlName="laboratorio" id="laboratorio" class="form-control border rounded-1"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option [value]="1">Xian</option>
-                            <option [value]="2">Gori</option>
-                            <option [value]="3">Toolose</option>
-                            <option [value]="4">Cenepa</option>
-                            <option [value]="5">Sarasota</option>
+                            <option>Xian</option>
+                            <option>Gori</option>
+                            <option>Toolose</option>
+                            <option>Cenepa</option>
+                            <option>Sarasota</option>
                         </select>
-                        <div *ngIf="form.get('equipo')?.invalid && form.get('equipo')?.touched" class="text-alert">
+                        <div *ngIf="form.get('laboratorio')?.invalid && form.get('laboratorio')?.touched"
+                            class="text-alert">
                             Laboratorio es requerido.
                         </div>
                     </div>
@@ -241,12 +254,17 @@
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="laboratorio"
+                        <label for="Laboratorio"
                             style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
-                        <input type="text" [(ngModel)]="datoEditado.equipo.laboratory" name="laboratorio" readonly
-                            class="form-control border rounded-1" id="audifonos"
-                            placeholder="Ingrese la marca de los audifonos"
+                        <select [(ngModel)]="datoEditado.laboratorio" name="laboratorio" id="laboratorio"
+                            class="form-control border rounded-1"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option>Xian</option>
+                            <option>Gori</option>
+                            <option>Toolose</option>
+                            <option>Cenepa</option>
+                            <option>Sarasota</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

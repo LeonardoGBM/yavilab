@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { LaboratorioService } from './service/laboratorio.service';
 import { UsuarioComponent } from './pages/usuarios/usuario.component';
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -18,7 +17,7 @@ import { UsuarioComponent } from './pages/usuarios/usuario.component';
     RegisterComponent,
     ErroresComponent,
     HttpClientModule,
-    UsuarioComponent,
+    UsuarioComponent
   ],
   providers:[
   LaboratorioService

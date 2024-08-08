@@ -100,7 +100,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <div *ngFor="let field of ['nombre_lab', 'monitores', 'cpu', 'teclado', 'audifonos', 'infocus', 'mouse', 'sillas', 'mesas']">
+              <div *ngFor="let field of ['nombre', 'monitores', 'cpu', 'teclado', 'audifonos', 'infocus', 'mouse', 'sillas', 'mesas']">
                 <div class="form-group pt-0 mb-3">
                   <label [for]="field" style="font-size: 13px; font-family: Verdana; color: black;">{{ field | titlecase }}:</label>
                   <input type="text" [formControlName]="field" [id]="field" class="form-control border rounded-1"

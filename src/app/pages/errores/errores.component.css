@@ -46,16 +46,15 @@
     font-size: 16px; 
     cursor: pointer;
     font-family: Arial, sans-serif;
-    margin-left: 270px;
+    margin-left: 150px;
 }
 
 .pdf-button i {
     margin-right: 8px; 
     font-size: 20px; 
 }
-
-.pdf-button:hover {
-    background-color: #b71c1c;
+.excel-button:hover {
+    background-color: #21a96e;
 }
 
 .btn-custom {
@@ -88,4 +87,32 @@
     font-family: Oswald;
     padding: 4px 12px;
     border-radius: 4px;
+}
+
+
+
+.excel-button {
+    display: flex;
+    align-items: center;
+    background-color: #28a745; 
+    border-color: #28a745; 
+    color: #fff; 
+    padding: 5px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px; 
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+.excel-button i {
+    margin-right: 8px; 
+    font-size: 20px; 
+}
+
+.excel-button:hover {
+    background-color: #21a96e;
 }

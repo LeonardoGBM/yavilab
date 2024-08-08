@@ -23,7 +23,7 @@ export class LaboratoriosComponent implements OnInit {
   constructor(private traer: LaboratorioService, private fb: FormBuilder) {
     // Inicialización del formulario con validaciones
     this.formRegistro = this.fb.group({
-      nombre_lab: ['', Validators.required],
+      nombre: ['', Validators.required],
       monitores: ['', Validators.required],
       cpu: ['', Validators.required],
       teclado: ['', Validators.required],
@@ -35,6 +35,7 @@ export class LaboratoriosComponent implements OnInit {
       observaciones: ['']
     });
   }
+
 
   ngOnInit(): void {
     this.traer.traer().subscribe({
@@ -96,10 +97,19 @@ export class LaboratoriosComponent implements OnInit {
     this.modoEdicion = true;
   }
 
-  guardarEdicion() {
-    if (this.formRegistro.invalid) return; // Validar el formulario
-
-    const updatedData = this.formRegistro.value;
+guardarEdicion() {
+    const updatedData = {
+      nombre_lab: this.datoEditado.nombre_lab,
+      monitores: this.datoEditado.monitores,
+      cpu: this.datoEditado.cpu,
+      teclado: this.datoEditado.teclado,
+      audifonos: this.datoEditado.audifonos,
+      infocus: this.datoEditado.infocus,
+      mouse: this.datoEditado.mouse,
+      sillas: this.datoEditado.sillas,
+      mesas: this.datoEditado.mesas,
+      observaciones: this.datoEditado.observaciones
+    };
 
     this.traer.editarDato(this.datoEditado.id, updatedData).subscribe({
       next: (response: any) => {
@@ -113,8 +123,7 @@ export class LaboratoriosComponent implements OnInit {
             console.error('Error al traer datos actualizados', error);
           }
         });
-        this.modoEdicion = false;
-        this.formRegistro.reset(); // Limpiar el formulario después de guardar
+        this.modoEdicion = false; // Cerrar el formulario después de guardar
       },
       error: (error) => {
         console.error('Error al editar dato', error);
