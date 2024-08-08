@@ -93,41 +93,52 @@
                         <input type="text" formControlName="nombre" name="nombre" class="form-control border rounded-1"
                             id="nombre" placeholder="Ingrese el nombre"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <div *ngIf="formRegistro.get('nombre')?.invalid && formRegistro.get('nombre')?.touched" class="text-alert">
+                                El nombre es requerido.
+                            </div>
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="apellido"
-                            style="font-size: 13px; font-family: Verdana; color: black;">Apellido:</label>
-                        <input type="text" formControlName="apellido" name="apellido"
-                            class="form-control border rounded-1" id="apellido" placeholder="Ingrese el apellido"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <label for="apellido" style="font-size: 13px; font-family: Verdana; color: black;">Apellido:</label>
+                        <input type="text" formControlName="apellido" name="apellido" class="form-control border rounded-1" id="apellido"
+                            placeholder="Ingrese el apellido" style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('apellido')?.invalid && formRegistro.get('apellido')?.touched" class="text-alert">
+                            El apellido es requerido.
+                        </div>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="email" style="font-size: 13px; font-family: Verdana; color: black;">Email:</label>
-                        <input type="email" formControlName="email" name="email" class="form-control border rounded-1"
-                            id="email" placeholder="Ingrese el email"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <input type="email" formControlName="email" name="email" class="form-control border rounded-1" id="email"
+                            placeholder="Ingrese el email" style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('email')?.invalid && formRegistro.get('email')?.touched" class="text-alert">
+                            <div *ngIf="formRegistro.get('email')?.errors?.['required']">El email es requerido.</div>
+                            <div *ngIf="formRegistro.get('email')?.errors?.['email']">Ingrese un email válido.</div>
+                        </div>
                     </div>
                     <div class="contenedor1">
-                        <label for="contraseña"
-                            style="font-size: 13px; font-family: Verdana; color: black;">Contraseña:</label>
-                        <input type="password" formControlName="contrasena" name="contrasena"
-                            class="form-control border rounded-1" id="contrasena" placeholder="Ingrese la contraseña"
+                        <label for="contraseña" style="font-size: 13px; font-family: Verdana; color: black;">Contraseña:</label>
+                        <input type="password" formControlName="contrasena" name="contrasena" class="form-control border rounded-1"
+                            id="contrasena" placeholder="Ingrese la contraseña"
                             style="font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('contrasena')?.invalid && formRegistro.get('contrasena')?.touched" class="text-alert">
+                            La contraseña es requerida.
+                        </div>
                         <i class="bi bi-eye icono" id="toggleEye" (click)="togglePasswordVisibility()"></i>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="rol" style="font-size: 13px; font-family: Verdana; color: black;">Rol:</label>
                         <select formControlName="rol" name="rol" id="rol" class="form-control border rounded-1" id="rol"
-                            placeholder="Ingrese el estado"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            placeholder="Ingrese el estado" style=" font-size: 12px; font-family: Verdana; background-color: white">
                             <option>Administrador</option>
                             <option>Usuario</option>
                         </select>
+                        <div *ngIf="formRegistro.get('rol')?.invalid && formRegistro.get('rol')?.touched" class="text-alert">
+                            El rol es requerido.
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <!--type="submit"--><button type="button" class="btn btn-primary"
+                    <!--type="submit"--><button type="button" class="btn btn-primary" [disabled]="formRegistro.invalid"
                         (click)="registrarse()">Añadir</button>
                 </div>
             </div>
@@ -142,7 +153,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar usuarios</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar usuarios</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

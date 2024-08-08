@@ -54,3 +54,11 @@
     overflow: auto;
     white-space: nowrap; /* Mantiene el texto en una sola línea */
 }
+
+.text-alert {
+    color: red;
+    font-size: 13px;
+    font-family: Oswald;
+    padding: 4px 12px;
+    border-radius: 4px;
+}

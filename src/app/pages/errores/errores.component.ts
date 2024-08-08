@@ -1,37 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SidebarComponent } from "../../layout/sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorService } from '../../service/error.service';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Importar el complemento para autoTable
-import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-errores',
   standalone: true,
-  imports: [SidebarComponent, CommonModule, HttpClientModule, FormsModule,],
+  imports: [SidebarComponent, CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   templateUrl: './errores.component.html',
-  styleUrl: './errores.component.css'
+  styleUrls: ['./errores.component.css']
 })
-export class ErroresComponent {
+export class ErroresComponent implements OnInit {
   filtro: string = '';
-  //listar datos
   data: any[] = [];
-  //aregar
-  numero: string = '';
-  horadano: string = '';
-  fechadano: string = '';
-  fechacambio: string = '';
-  descripcion: string = '';
-  estado: string = '';
-  equipo: any = { id: 0 };
-  dato: any;
-
+  form: FormGroup;
   datoEditado: any = { numero_serie: '', hora_dano: '', fecha_dano: '', fecha_cambio: '', descripcion: '', estado: '', equipo: '' };
   modoEdicion: boolean = false;
+  dato: any;
 
-  constructor(private traer: ErrorService) { }
+  constructor(private fb: FormBuilder, private traer: ErrorService) {
+    // Inicialización del formulario
+    this.form = this.fb.group({
+      numero: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      horadano: ['', Validators.required],
+      fechadano: ['', Validators.required],
+      fechacambio: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      estado: ['', Validators.required],
+      equipo: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
     this.traer.traer().subscribe({
@@ -45,30 +48,28 @@ export class ErroresComponent {
     });
   }
 
-  //agregar datos
   agregarDato() {
+    if (this.form.invalid) {
+      console.log('Formulario inválido');
+      return;
+    }
+
     const data = {
-      numero_serie: this.numero,
-      hora_dano: this.horadano,
-      fecha_dano: this.fechadano,
-      fecha_cambio: this.fechacambio,
-      descripcion: this.descripcion,
-      estado: this.estado,
-      equipo: { id: this.equipo.id }
+      numero_serie: this.form.value.numero,
+      hora_dano: this.form.value.horadano,
+      fecha_dano: this.form.value.fechadano,
+      fecha_cambio: this.form.value.fechacambio,
+      descripcion: this.form.value.descripcion,
+      estado: this.form.value.estado,
+      equipo: { id: this.form.value.equipo }
     };
 
-    console.log('Datos a enviar:', data); // Verifica los datos aquí
+    console.log('Datos a enviar:', data);
 
     this.traer.agregarDato(data).subscribe({
       next: (response) => {
         console.log('Dato agregado', response);
-        this.numero = '';
-        this.horadano = '';
-        this.fechadano = '';
-        this.fechacambio = '';
-        this.descripcion = '';
-        this.estado = '';
-        this.equipo = { id: 0 };
+        this.form.reset();
         this.traer.traer().subscribe({
           next: (data: any[]) => {
             this.data = data;
@@ -85,16 +86,12 @@ export class ErroresComponent {
     });
   }
 
-
-
-  //eliminar datos
-
   eliminar(dato: any) {
     if (dato && dato.id && confirm('¿Estás seguro de eliminar este registro?')) {
       this.traer.eliminar(dato.id).subscribe({
         next: (response) => {
           console.log('Dato eliminado', response);
-          this.data = this.data.filter(item => item.id !== dato.id); // Actualizar la lista después de eliminar
+          this.data = this.data.filter(item => item.id !== dato.id);
         },
         error: (err) => {
           console.error('Error al eliminar dato', err);
@@ -105,19 +102,17 @@ export class ErroresComponent {
     }
   }
 
-  //filtro
   aplicarFiltro() {
     if (this.filtro) {
       this.data = this.data.filter((dato: any) =>
         dato.numero_serie?.toLowerCase().includes(this.filtro.toLowerCase()) ||
         dato.equipo.laboratory?.toLowerCase().includes(this.filtro.toLowerCase()) ||
         dato.estado?.toLowerCase().includes(this.filtro.toLowerCase())
-
       );
     } else {
       this.traer.traer().subscribe({
         next: (data: any[]) => {
-          this.data = data; // Recupera todos los datos si no hay filtro
+          this.data = data;
         },
         error: (error) => {
           console.error('Error al traer datos:', error);
@@ -126,7 +121,6 @@ export class ErroresComponent {
     }
   }
 
-  // Método para iniciar la edición de un dato
   editarDato(dato: any) {
     this.datoEditado = { ...dato };
     this.modoEdicion = true;
@@ -140,7 +134,7 @@ export class ErroresComponent {
       fecha_cambio: this.datoEditado.fecha_cambio,
       descripcion: this.datoEditado.descripcion,
       estado: this.datoEditado.estado,
-      equipo: { id: this.equipo.laboratory }
+      equipo: { id: this.datoEditado.equipo }
     };
 
     this.traer.editarDato(this.datoEditado.id, updatedData).subscribe({
@@ -155,7 +149,7 @@ export class ErroresComponent {
             console.error('Error al traer datos actualizados', error);
           }
         });
-        this.modoEdicion = false; // Cerrar el formulario después de guardar
+        this.modoEdicion = false;
       },
       error: (error) => {
         console.error('Error al editar dato', error);
@@ -163,11 +157,9 @@ export class ErroresComponent {
     });
   }
 
-  //PDF
-
   generarPDF() {
     const doc = new jsPDF();
-    const logoUrl = './../assets/img/logoazul-removebg-preview.png'; // Ruta al logotipo
+    const logoUrl = './../assets/img/logoazul-removebg-preview.png';
 
     fetch(logoUrl)
       .then(response => response.blob())
@@ -176,22 +168,13 @@ export class ErroresComponent {
         reader.onloadend = () => {
           const imgData = reader.result as string;
 
-          // Añadir el logotipo
-          doc.addImage(imgData, 'PNG', 10, 10, 30, 20); // Ajustar tamaño y posición
-
-          // Añadir título
+          doc.addImage(imgData, 'PNG', 10, 10, 30, 20);
           doc.setFontSize(18);
-          doc.text('Informe de Daños del Equipo', 70, 30); // Ajustar posición
-
-          // Añadir fecha
+          doc.text('Informe de Daños del Equipo', 70, 30);
           doc.setFontSize(12);
           doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 40);
 
-          // Añadir información de la fila seleccionada
-          doc.setFontSize(12);
-
           if (this.dato) {
-            // Definir el contenido del informe
             const texto = [
               `**Informe de Daño y Reparación de Equipos**`,
               `**Equipo:**`,
@@ -211,43 +194,41 @@ export class ErroresComponent {
               [Nombre del Responsable]`
             ];
 
-            // Ajustar el texto automáticamente en el PDF
-            let y = 50; // Coordenada Y inicial después del logotipo y título
+            let y = 50;
             texto.forEach(parrafo => {
-              const lines = doc.splitTextToSize(parrafo, 180); // Ajustar el tamaño del texto al ancho de la página
+              const lines = doc.splitTextToSize(parrafo, 180);
               lines.forEach((line: string) => {
                 doc.text(line, 14, y);
-                y += 10; // Espaciado entre líneas
+                y += 10;
               });
-              y += 10; // Espaciado entre párrafos
+              y += 10;
             });
           } else {
             const mensaje = 'No se ha seleccionado ningún dato para el informe.';
             const lines = doc.splitTextToSize(mensaje, 180);
-            let y = 50; // Coordenada Y inicial
+            let y = 50;
             lines.forEach((line: string) => {
               doc.text(line, 14, y);
-              y += 10; // Espaciado entre líneas
+              y += 10;
             });
           }
 
-          // Guardar el archivo PDF
           doc.save('informe_de_danos.pdf');
         };
-        reader.readAsDataURL(blob); // Convertir blob a base64
+        reader.readAsDataURL(blob);
       })
       .catch(error => {
         console.error('Error al cargar la imagen:', error);
       });
   }
+
   seleccionarDato(dato: any) {
     this.dato = dato;
   }
 
-  // imprimir toda la tabla del pdf con todos loas datos
   generarPDFcompleto() {
     const doc = new jsPDF();
-    const logoUrl = './../assets/img/logoazul-removebg-preview.png'; // Ruta al logotipo
+    const logoUrl = './../assets/img/logoazul-removebg-preview.png';
 
     fetch(logoUrl)
       .then(response => response.blob())
@@ -256,18 +237,12 @@ export class ErroresComponent {
         reader.onloadend = () => {
           const imgData = reader.result as string;
 
-          // Añadir el logotipo
-          doc.addImage(imgData, 'PNG', 10, 10, 30, 20); // Ajustar tamaño y posición
-
-          // Añadir título
+          doc.addImage(imgData, 'PNG', 10, 10, 30, 20);
           doc.setFontSize(18);
-          doc.text('Informe de Daños del Equipo', 70, 30); // Ajustar posición
-
-          // Añadir fecha
+          doc.text('Informe de Daños del Equipo', 70, 30);
           doc.setFontSize(12);
           doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 14, 40);
 
-          // Añadir tabla con todos los datos de `this.data`
           (doc as any).autoTable({
             startY: 50,
             head: [['#', 'Número de serie', 'Hora daños', 'Fecha daños', 'Fecha cambio', 'Descripción', 'Estado', 'Laboratorio']],
@@ -283,10 +258,9 @@ export class ErroresComponent {
             ]),
           });
 
-          // Guardar el archivo PDF
           doc.save('informe_completo_de_danos.pdf');
         };
-        reader.readAsDataURL(blob); // Convertir blob a base64
+        reader.readAsDataURL(blob);
       })
       .catch(error => {
         console.error('Error al cargar la imagen:', error);
