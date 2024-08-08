@@ -27,32 +27,42 @@ export class UsuarioComponent {
     contrasena: ["", Validators.required],
     rol: ["", Validators.required]
   })
-
-  registrarse(){
+  registrarse() {
     if (this.formRegistro.invalid) return;
-
-    const objeto : Usuario = {
+  
+    const objeto: Usuario = {
       nombre: this.formRegistro.value.nombre,
       apellido: this.formRegistro.value.apellido,
       email: this.formRegistro.value.email,
       contrasena: this.formRegistro.value.contrasena,
       rol: this.formRegistro.value.rol
-    }
-
+    };
+  
     this.accesoService.registrarse(objeto).subscribe({
       next: (data) => {
         if (data) {
-          alert("Usuario añadido")
+          alert("Usuario añadido");
+  
+          // Actualizar los datos sin recargar la página
+          this.traer.traer().subscribe({
+            next: (data) => {
+              // Aquí actualiza los datos en el componente
+              this.data = data;
+              console.log('Datos actualizados después de registrar:', this.data);
+            },
+            error: (error) => {
+              console.error('Error al traer datos actualizados:', error);
+            }
+          });
         } else {
-          alert("No se pudo registrar")
+          alert("No se pudo registrar");
         }
       },
       error: (error) => {
         console.log("Error de registro:", error);
       }
-    })
+    });
   }
-
 
 
 

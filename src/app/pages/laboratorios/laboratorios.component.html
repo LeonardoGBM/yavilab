@@ -20,8 +20,8 @@
                 </div>
                 <div>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal"
-                        style="margin-right: 20px;">Agregar</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop" style="margin-right: 20px;">Agregar</button>
 
                 </div>
             </div>
@@ -90,41 +90,123 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="addModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="addModalLabel" aria-hidden="true">
-    <form [formGroup]="formRegistro" (ngSubmit)="modoEdicion ? guardarEdicion() : agregarDato()">
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <form [formGroup]="formRegistro" (ngSubmit)="agregarDato()">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5">{{ modoEdicion ? 'Editar usuario' : 'Agregar usuario' }}</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div *ngFor="let field of ['nombre', 'monitores', 'cpu', 'teclado', 'audifonos', 'infocus', 'mouse', 'sillas', 'mesas']">
-                <div class="form-group pt-0 mb-3">
-                  <label [for]="field" style="font-size: 13px; font-family: Verdana; color: black;">{{ field | titlecase }}:</label>
-                  <input type="text" [formControlName]="field" [id]="field" class="form-control border rounded-1"
-                    placeholder="Ingrese {{ field }}" style="font-size: 12px; font-family: Verdana; background-color: white">
-                  <div *ngIf="formRegistro.get(field)?.invalid && formRegistro.get(field)?.touched" class="text-alert">
-                    {{ field | titlecase }} es requerido.
-                  </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Laboratorio</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-              </div>
-              <div class="form-group pt-0 mb-3">
-                <label for="observaciones" style="font-size: 13px; font-family: Verdana; color: black;">Observaciones:</label>
-                <textarea [formControlName]="'observaciones'" [id]="'observaciones'" class="form-control border rounded-1"
-                  placeholder="Ingrese observaciones" style="font-size: 12px; font-family: Verdana; background-color: white"></textarea>
-              </div>
+                <div class="modal-body">
+                    <div class="form-group pt-0 mb-3">
+                        <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Nombre de
+                            laboratorio:</label>
+                        <input type="text" formControlName="nombre_lab" name="nombre"
+                            class="form-control border rounded-1" id="numSerie" placeholder="Ingrese laboratorios"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('nombre_lab')?.invalid && formRegistro.get('nombre_lab')?.touched"
+                            class="text-alert">
+                            Nombre de laboratorio es requerido.
+                        </div>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="hora"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Monitores:</label>
+                        <input type="text" formControlName="monitores" name="monitores"
+                            class="form-control border rounded-1" id="hora" placeholder="Ingrese monitores"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('monitores')?.invalid && formRegistro.get('monitores')?.touched"
+                            class="text-alert">
+                            Monitores requerido.
+                        </div>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Cpu:</label>
+                        <input type="text" formControlName="cpu" name="cpu" class="form-control border rounded-1"
+                            id="fecha" placeholder="Ingrese CPU"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('cpu')?.invalid && formRegistro.get('cpu')?.touched"
+                            class="text-alert">
+                            CPU requerido.
+                        </div>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="fechaCambio"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Teclado:</label>
+                        <input type="text" formControlName="teclado" name="teclado"
+                            class="form-control border rounded-1" id="fechaCambio" placeholder="Ingrese teclados"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('teclado')?.invalid && formRegistro.get('teclado')?.touched"
+                            class="text-alert">
+                            Teclados requeridos.
+                        </div>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="descripcion"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Audifonos:</label>
+                        <input type="text" formControlName="audifonos" name="audifonos"
+                            class="form-control border rounded-1" id="descripcion" placeholder="Ingrese audifonos"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('audifonos')?.invalid && formRegistro.get('audifonos')?.touched"
+                            class="text-alert">
+                            Audifonos requeridos.
+                        </div>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="estado"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Infocus:</label>
+                        <input type="text" formControlName="infocus" name="infocus"
+                            class="form-control border rounded-1" id="estado" placeholder="Ingrese infocus"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                        <div *ngIf="formRegistro.get('infocus')?.invalid && formRegistro.get('infocus')?.touched"
+                            class="text-alert">
+                            Infocus requerido.
+                        </div>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Mouse:</label>
+                        <input type="text" formControlName="mouse" name="mouse" class="form-control border rounded-1"
+                        style=" font-size: 12px; font-family: Verdana; background-color: white"
+                            id="estado" placeholder="Ingrese mouse">
+                        <div *ngIf="formRegistro.get('mouse')?.invalid && formRegistro.get('mouse')?.touched"
+                            class="text-alert">
+                            Mouse requerido.
+                        </div>
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Sillas:</label>
+                        <input type="text" formControlName="sillas" name="sillas" class="form-control border rounded-1"
+                        style=" font-size: 12px; font-family: Verdana; background-color: white"
+                            id="estado" placeholder="Ingrese sillas">
+                        <div *ngIf="formRegistro.get('sillas')?.invalid && formRegistro.get('sillas')?.touched"
+                            class="text-alert">
+                            Sillas requeridas.
+                        </div>
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Mesas:</label>
+                        <input type="text" formControlName="mesas" name="mesas" class="form-control border rounded-1"
+                        style=" font-size: 12px; font-family: Verdana; background-color: white"
+                            id="estado" placeholder="Ingrese mesas">
+                        <div *ngIf="formRegistro.get('mesas')?.invalid && formRegistro.get('mesas')?.touched"
+                            class="text-alert">
+                            Mesas requeridas.
+                        </div>
+                        <div class="form-group pt-0 mb-3">
+                            <label for="observaciones"
+                                style="font-size: 13px; font-family: Verdana; color: black;">Observaciones:</label>
+                            <textarea [formControlName]="'observaciones'" name="observaciones" [id]="'observaciones'"
+                            style=" font-size: 16px; font-family: Verdana; background-color: white"
+                                class="form-control border rounded-1" placeholder="Ingrese observaciones"
+                                style="font-size: 12px; font-family: Verdana; background-color: white"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="formRegistro.invalid">Añadir</button>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-              <button type="submit" class="btn btn-primary" [disabled]="formRegistro.invalid">
-                {{ modoEdicion ? 'Guardar' : 'Añadir' }}
-              </button>
-            </div>
-          </div>
         </div>
-      </form>
+    </form>
 </div>
 
 <!-- Modal para Editar -->

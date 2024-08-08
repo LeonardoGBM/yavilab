@@ -23,7 +23,7 @@ export class LaboratoriosComponent implements OnInit {
   constructor(private traer: LaboratorioService, private fb: FormBuilder) {
     // Inicialización del formulario con validaciones
     this.formRegistro = this.fb.group({
-      nombre: ['', Validators.required],
+      nombre_lab: ['', Validators.required],
       monitores: ['', Validators.required],
       cpu: ['', Validators.required],
       teclado: ['', Validators.required],
@@ -32,7 +32,7 @@ export class LaboratoriosComponent implements OnInit {
       mouse: ['', Validators.required],
       sillas: ['', Validators.required],
       mesas: ['', Validators.required],
-      observaciones: ['']
+      observaciones: ['', Validators.required]
     });
   }
 
@@ -67,27 +67,24 @@ export class LaboratoriosComponent implements OnInit {
   }
 
   agregarDato() {
-    if (this.formRegistro.invalid) return; // Validar el formulario
+    if (this.formRegistro.invalid) {
+      return; // Si el formulario es inválido, no enviar
+    }
 
     const data = this.formRegistro.value;
 
-    this.traer.agregarDato(data).subscribe({
-      next: (response) => {
-        console.log('Dato agregado', response);
-        this.formRegistro.reset(); // Limpiar el formulario después de agregar
-        this.traer.traer().subscribe({
-          next: (data: any[]) => {
-            this.data = data;
-            console.log('Datos actualizados:', this.data);
-          },
-          error: (error) => {
-            console.error('Error al traer datos:', error);
-          }
-        });
-      },
-      error: (error) => {
-        console.error('Error al agregar dato', error);
-      }
+    this.traer.agregarDato(data).subscribe(response => {
+      console.log('Dato agregado', response);
+      this.formRegistro.reset(); // Limpiar el formulario después de agregar
+      this.traer.traer().subscribe({
+        next: (data: any[]) => {
+          this.data = data;
+          console.log('Datos actualizados:', this.data);
+        },
+        error: (error) => {
+          console.error('Error al traer datos:', error);
+        }
+      });
     });
   }
 

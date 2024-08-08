@@ -5,7 +5,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RegisterComponent } from './register/register.component';
 import { ErroresComponent } from './pages/errores/errores.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LaboratorioService } from './service/laboratorio.service';
 import { UsuarioComponent } from './pages/usuarios/usuario.component';
 
 @NgModule({
@@ -20,7 +19,6 @@ import { UsuarioComponent } from './pages/usuarios/usuario.component';
     UsuarioComponent
   ],
   providers:[
-  LaboratorioService
   ]
   
 })
