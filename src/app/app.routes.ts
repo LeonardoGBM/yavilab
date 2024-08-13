@@ -18,16 +18,11 @@ export const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent},
     { path: 'dashboard', component: DashboardComponent, canActivate:[authGuard]},
-    { path: 'lab', component: LaboratoriosComponent},
-    { path: 'equipo', component: EquiposComponent},
+    { path: 'lab', component: LaboratoriosComponent, canActivate:[authGuard]},
+    { path: 'equipo', component: EquiposComponent, canActivate:[authGuard]},
     { path: 'register', component: RegisterComponent},
-    { path: 'errores', component: ErroresComponent},
-    { path: 'lab-xian', component: LabXianComponent},
-    { path: 'lab-gori', component: LabGoriComponent},
-    { path: 'lab-toolouse', component:LabToolouseComponent},
-    { path: 'lab-sarasota', component:LabSarasotaComponent},
-    { path: 'lab-cenepa', component:LabCenepaComponent},
-    { path: 'usuarios', component:UsuarioComponent}
+    { path: 'errores', component: ErroresComponent, canActivate:[authGuard]},
+    { path: 'usuarios', component:UsuarioComponent, canActivate:[authGuard]}
 
 ];
 
