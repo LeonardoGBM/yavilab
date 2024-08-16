@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, ValidationErrors, AbstractControl  } from '@angular/forms';
 import { SidebarComponent } from "../../layout/sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,8 +7,22 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorService } from '../../service/error.service';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Importar el complemento para autoTable
-import 'jspdf-autotable'; // Importar el complemento para autoTable
 import * as XLSX from 'xlsx';
+
+// Función de validador personalizado
+export function fechaDanioAntesDeFechaCambio(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const formGroup = control as FormGroup; // Cast a FormGroup
+    const fechaDanio = formGroup.get('fecha_dano')?.value;
+    const fechaCambio = formGroup.get('fecha_cambio')?.value;
+
+    if (fechaDanio && fechaCambio && fechaDanio > fechaCambio) {
+      return { fechaDanioPosterior: true };
+    }
+    return null;
+  };
+}
+
 @Component({
   selector: 'app-errores',
   standalone: true,
@@ -16,6 +30,7 @@ import * as XLSX from 'xlsx';
   templateUrl: './errores.component.html',
   styleUrls: ['./errores.component.css']
 })
+
 export class ErroresComponent implements OnInit {
   filtro: string = '';
   data: any[] = [];
@@ -27,14 +42,14 @@ export class ErroresComponent implements OnInit {
   constructor(private fb: FormBuilder, private traer: ErrorService) {
     // Inicialización del formulario
     this.form = this.fb.group({
-      numero_serie: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      numero_serie: ['', Validators.required],
       hora_dano: ['', Validators.required],
       fecha_dano: ['', Validators.required],
       fecha_cambio: ['', Validators.required],
       descripcion: ['', Validators.required],
       estado: ['', Validators.required],
       laboratorio: ['', Validators.required]
-    });
+    }, { validator: fechaDanioAntesDeFechaCambio() });
   }
 
   ngOnInit(): void {

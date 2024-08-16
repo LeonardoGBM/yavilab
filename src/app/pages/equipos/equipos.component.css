@@ -70,7 +70,7 @@
     font-size: 16px; 
     cursor: pointer;
     font-family: Arial, sans-serif;
-    margin-left: 150px;
+    margin-left: 60px;
 }
 
 .pdf-button i {
@@ -94,9 +94,6 @@
     font-size: 16px; 
     cursor: pointer;
     font-family: Arial, sans-serif;
-    margin-left: 20px;
-    margin-right: 20px;
-
 }
 
 .excel-button i {

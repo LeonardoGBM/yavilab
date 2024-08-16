@@ -5,11 +5,6 @@ import { LaboratoriosComponent } from './pages/laboratorios/laboratorios.compone
 import { EquiposComponent } from './pages/equipos/equipos.component';
 import { RegisterComponent } from './register/register.component';
 import { ErroresComponent } from './pages/errores/errores.component';
-import { LabXianComponent } from './pages/lab-xian/lab-xian.component';
-import { LabGoriComponent } from './pages/lab-gori/lab-gori.component';
-import { LabToolouseComponent } from './pages/lab-toolouse/lab-toolouse.component';
-import { LabSarasotaComponent } from './pages/lab-sarasota/lab-sarasota.component';
-import { LabCenepaComponent } from './pages/lab-cenepa/lab-cenepa.component';
 import { UsuarioComponent } from './pages/usuarios/usuario.component';
 import { authGuard } from './guard/auth.guard';
 

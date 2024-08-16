@@ -113,7 +113,7 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
                             serie:</label>
-                        <input type="number" formControlName="numero_serie" class="form-control border rounded-1"
+                        <input type="text" formControlName="numero_serie" class="form-control border rounded-1"
                             id="numSerie" placeholder="Ingrese el numero de serie"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                         <div *ngIf="form.get('numero_serie')?.invalid && form.get('numero_serie')?.touched"
@@ -153,6 +153,11 @@
                             Fecha de cambio es requerida.
                         </div>
                     </div>
+
+                    <div *ngIf="form.errors?.['fechaDanioPosterior']" class="text-alert">
+                        La fecha de cambio no puede ser inferior a la fecha de daño.
+                    </div>
+
                     <div class="form-group pt-0 mb-3">
                         <label for="descripcion"
                             style="font-size: 13px; font-family: Verdana; color: black;">Descripción:</label>
