@@ -30,12 +30,14 @@ export class EquiposComponent implements OnInit {
   lab: string = '';
   laboratorio: any = { id: 0 };
   laboratorios: any[] = [];
+  maxDataCount: number = 200;
   constructor(private traer: EquipoService) { }
 
   ngOnInit(): void {
     this.cargarLaboratorios(); // Cargar laboratorios al iniciar el componente
     this.traer.traer().subscribe({
       next: (data: any[]) => {
+        this.data = data.slice(0, 200);
         this.data = data;
         this.aplicarFiltro();
       },
@@ -76,7 +78,7 @@ export class EquiposComponent implements OnInit {
   aplicarFiltro() {
     if (this.filtro) {
       this.data = this.data.filter((dato: any) =>
-        dato.laboratorio?.toLowerCase().includes(this.filtro.toLowerCase())
+        dato.lab?.toLowerCase().includes(this.filtro.toLowerCase())
       );
     } else {
       this.traer.traer().subscribe({
@@ -90,6 +92,12 @@ export class EquiposComponent implements OnInit {
     }
   }
   agregarDato() {
+    // Verifica el número de registros antes de agregar uno nuevo
+    if (this.data.length >= this.maxDataCount) {
+      alert('No se pueden agregar más de 200 equipos.');
+      return;
+    }
+  
     const data = {
       numero_serie: this.numero,
       descripcion_equipo: this.descripcion,
@@ -99,12 +107,14 @@ export class EquiposComponent implements OnInit {
       lab: this.lab,
       laboratorio: { id: this.laboratorio.id }
     };
-
+  
     console.log('Datos a enviar:', data); // Verifica los datos aquí
-
+  
     this.traer.agregarDato(data).subscribe({
       next: (response) => {
         console.log('Dato agregado', response);
+  
+        // Limpiar los valores del formulario después de agregar
         this.numero = '';
         this.descripcion = '';
         this.marca = '';
@@ -112,6 +122,8 @@ export class EquiposComponent implements OnInit {
         this.estado = '';
         this.lab = '';
         this.laboratorio = { id: 0 };
+  
+        // Traer los datos actualizados después de agregar
         this.traer.traer().subscribe({
           next: (data: any[]) => {
             this.data = data;

@@ -10,6 +10,8 @@ import 'jspdf-autotable'; // Importar el complemento para autoTable
 import * as XLSX from 'xlsx';
 
 // Función de validador personalizado
+
+
 export function fechaDanioAntesDeFechaCambio(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const formGroup = control as FormGroup; // Cast a FormGroup
@@ -39,18 +41,22 @@ export class ErroresComponent implements OnInit {
   fechadano: string = '';
   fechacambio: string = '';
   descripcion: string = '';
+  estado: string = '';
   lab: string = '';
-  datoEditado: any = { numero_serie: '', hora_dano: '', fecha_dano: '', fecha_cambio: '', descripcion: '', equipo:'', lab_nombre:'' };
+  datoEditado: any = { numero_serie: '', hora_dano: '', fecha_dano: '', fecha_cambio: '', descripcion: '', equipo:'', estado: '', lab_nombre:'' };
   modoEdicion: boolean = false;
   dato: any;
   equipo: any = { id: 0 };
   equipos: any[] = [];
+  maxFechaDanio: string = '';
+  maxDataCount: number = 200;
   constructor(private traer: ErrorService) { }
 
   ngOnInit(): void {
     this.cargarLaboratorios(); // Cargar laboratorios al iniciar el componente
     this.traer.traer().subscribe({
       next: (data: any[]) => {
+        this.data = data.slice(0, 200);
         this.data = data;
         this.aplicarFiltro();
       },
@@ -78,12 +84,19 @@ export class ErroresComponent implements OnInit {
       this.lab = labSeleccionado.lab;
     }
   }
+  actualizarMaxFechaDanio() {
+    const fechaCambioInput = document.getElementById('fechacambio') as HTMLInputElement;
+    this.maxFechaDanio = fechaCambioInput.value;
+  }
 
-  
+  isFechaDanioInvalida(): boolean {
+    return new Date(this.fechadano) > new Date(this.fechacambio);
+  }
+
   aplicarFiltro() {
     if (this.filtro) {
       this.data = this.data.filter((dato: any) =>
-        dato.laboratorio?.toLowerCase().includes(this.filtro.toLowerCase())
+        dato.lab_nombre?.toLowerCase().includes(this.filtro.toLowerCase())
       );
     } else {
       this.traer.traer().subscribe({
@@ -97,28 +110,40 @@ export class ErroresComponent implements OnInit {
     }
   }
   agregarDato() {
+    // Verifica el número de registros antes de agregar uno nuevo
+    if (this.data.length >= this.maxDataCount) {
+      alert('No se pueden agregar más de 200 datos.');
+      return;
+    }
+  
     const data = {
       numero_serie: this.numero,
       hora_dano: this.horadano,
       fecha_dano: this.fechadano,
       fecha_cambio: this.fechacambio,
       descripcion: this.descripcion,
+      estado: this.estado,
       lab_nombre: this.lab,
       equipo: { id: this.equipo.id }
     };
-
+  
     console.log('Datos a enviar:', data); // Verifica los datos aquí
-
+  
     this.traer.agregarDato(data).subscribe({
       next: (response) => {
         console.log('Dato agregado', response);
+  
+        // Limpiar los valores del formulario después de agregar
         this.numero = '';
         this.horadano = '';
         this.fechadano = '';
         this.fechacambio = '';
         this.descripcion = '';
+        this.estado = '';
         this.lab = '';
         this.equipo = { id: 0 };
+  
+        // Traer los datos actualizados después de agregar
         this.traer.traer().subscribe({
           next: (data: any[]) => {
             this.data = data;
@@ -134,6 +159,7 @@ export class ErroresComponent implements OnInit {
       }
     });
   }
+  
 
   eliminar(dato: any) {
     if (dato && dato.id && confirm('¿Estás seguro de eliminar este registro?')) {
@@ -163,6 +189,7 @@ export class ErroresComponent implements OnInit {
       fecha_dano: this.datoEditado.fecha_dano,
       fecha_cambio: this.datoEditado.fecha_cambio,
       descripcion: this.datoEditado.descripcion,
+      estado: this.datoEditado.estado,
       lab_nombre: this.datoEditado.lab_nombre
     };
 

@@ -61,8 +61,8 @@
                             <td class="descripcion-scroll2">{{item.fecha_dano}}</td>
                             <td class="descripcion-scroll2">{{item.fecha_cambio}}</td>
                             <td class="descripcion-scroll">{{item.descripcion}}</td>
-                            <td>{{item.estado}}</td>
-                            <td>{{item.equipo.lab}}</td>
+                            <td class="descripcion-scroll">{{item.estado}}</td>
+                            <td>{{item.lab_nombre}}</td>
                             <td class="d-flex justify-content-center">
                                 <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
                                     data-bs-target="#editModal" style="margin-right: 20px; color: blue;"></i>
@@ -103,7 +103,7 @@
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdrop" aria-hidden="true">
-    <form (submit)="agregarDato()">
+    <form #form="ngForm" (ngSubmit)="agregarDato()">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -124,7 +124,7 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="labo"
                             style="font-size: 13px; font-family: Verdana; color: black;">Numero de serie:</label>
-                        <select [(ngModel)]="numero" name="numero" id="numero"
+                        <select [(ngModel)]="numero" name="numeros" id="numeros"
                             class="form-control border rounded-1"
                             style="font-size: 12px; font-family: Verdana; background-color: white">
                             <option *ngFor="let numero of equipos">{{ numero.numero_serie }}</option>
@@ -139,27 +139,35 @@
 
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="marca" style="font-size: 13px; font-family: Verdana; color: black;">Fecha del
-                            daño:</label>
-                        <input type="date" [(ngModel)]="fechadano" name="fechadano" id="fechadano"
-                            class="form-control border rounded-1" placeholder="Ingrese la marca"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-
+                        <label for="fechadano" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de Daño:</label>
+                        <input type="date" id="fechadano" name="fechadano" [(ngModel)]="fechadano"
+                            (change)="isFechaDanioInvalida()"
+                            class="form-control border rounded-1" style="font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="modelo" style="font-size: 13px; font-family: Verdana; color: black;">Fecha del
-                            cambio:</label>
-                        <input type="date" [(ngModel)]="fechacambio" name="fechacambio" id="fechacambio"
-                            class="form-control border rounded-1" placeholder="Ingrese el modelo"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-
+                        <label for="fechacambio" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de Cambio:</label>
+                        <input type="date" id="fechacambio" name="fechacambio" [(ngModel)]="fechacambio"
+                            (change)="actualizarMaxFechaDanio()"
+                            class="form-control border rounded-1" style="font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
+                      <div *ngIf="isFechaDanioInvalida()" class="error" style="color: red;">
+                        La fecha de daño no puede ser posterior a la fecha de cambio.
+                      </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado"
                             style="font-size: 13px; font-family: Verdana; color: black;">Descripcion:</label>
                         <input type="text" [(ngModel)]="descripcion" name="descripcion" id="desEquipo"
                             class="form-control border rounded-1" placeholder="Ingrese la descripción del equipo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
+
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
+                        <select [(ngModel)]="estado" name="estado" id="estado" class="form-control border rounded-1"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option>Funcional</option>
+                            <option>Arreglado</option>
+                        </select>
 
                     </div>
                     <div class="form-group pt-0 mb-3">
@@ -197,7 +205,7 @@
                             serie:</label>
                         <input type="text" [(ngModel)]="datoEditado.numero_serie" name="nombreEditado"
                             class="form-control border rounded-1" id="nombre" placeholder="Ingrese el nombre"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            style=" font-size: 12px; font-family: Verdana; background-color: white" readonly>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de
@@ -228,6 +236,15 @@
                         <input type="text" [(ngModel)]="datoEditado.descripcion" name="descripcion"
                             class="form-control border rounded-1" id="mouse" placeholder="Ingrese la marca del mouse"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
+                        <select [(ngModel)]="datoEditado.estado" name="estado" id="estado"
+                            class="form-control border rounded-1"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option>Funcional</option>
+                            <option>Arreglado</option>
+                        </select>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="mouse"
