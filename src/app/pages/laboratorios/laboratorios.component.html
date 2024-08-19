@@ -114,7 +114,7 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="hora"
                             style="font-size: 13px; font-family: Verdana; color: black;">Monitores:</label>
-                        <input type="text" formControlName="monitores" name="monitores"
+                        <input type="number" formControlName="monitores" name="monitores"
                             class="form-control border rounded-1" id="hora" placeholder="Ingrese monitores"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                         <div *ngIf="formRegistro.get('monitores')?.invalid && formRegistro.get('monitores')?.touched"
@@ -124,7 +124,7 @@
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Cpu:</label>
-                        <input type="text" formControlName="cpu" name="cpu" class="form-control border rounded-1"
+                        <input type="number" formControlName="cpu" name="cpu" class="form-control border rounded-1"
                             id="fecha" placeholder="Ingrese CPU"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                         <div *ngIf="formRegistro.get('cpu')?.invalid && formRegistro.get('cpu')?.touched"
@@ -135,7 +135,7 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="fechaCambio"
                             style="font-size: 13px; font-family: Verdana; color: black;">Teclado:</label>
-                        <input type="text" formControlName="teclado" name="teclado"
+                        <input type="number" formControlName="teclado" name="teclado"
                             class="form-control border rounded-1" id="fechaCambio" placeholder="Ingrese teclados"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                         <div *ngIf="formRegistro.get('teclado')?.invalid && formRegistro.get('teclado')?.touched"
@@ -146,7 +146,7 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="descripcion"
                             style="font-size: 13px; font-family: Verdana; color: black;">Audifonos:</label>
-                        <input type="text" formControlName="audifonos" name="audifonos"
+                        <input type="number" formControlName="audifonos" name="audifonos"
                             class="form-control border rounded-1" id="descripcion" placeholder="Ingrese audifonos"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                         <div *ngIf="formRegistro.get('audifonos')?.invalid && formRegistro.get('audifonos')?.touched"
@@ -157,7 +157,7 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="estado"
                             style="font-size: 13px; font-family: Verdana; color: black;">Infocus:</label>
-                        <input type="text" formControlName="infocus" name="infocus"
+                        <input type="number" formControlName="infocus" name="infocus"
                             class="form-control border rounded-1" id="estado" placeholder="Ingrese infocus"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                         <div *ngIf="formRegistro.get('infocus')?.invalid && formRegistro.get('infocus')?.touched"
@@ -167,7 +167,7 @@
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Mouse:</label>
-                        <input type="text" formControlName="mouse" name="mouse" class="form-control border rounded-1"
+                        <input type="number" formControlName="mouse" name="mouse" class="form-control border rounded-1"
                         style=" font-size: 12px; font-family: Verdana; background-color: white"
                             id="estado" placeholder="Ingrese mouse">
                         <div *ngIf="formRegistro.get('mouse')?.invalid && formRegistro.get('mouse')?.touched"
@@ -175,7 +175,7 @@
                             Mouse requerido.
                         </div>
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Sillas:</label>
-                        <input type="text" formControlName="sillas" name="sillas" class="form-control border rounded-1"
+                        <input type="number" formControlName="sillas" name="sillas" class="form-control border rounded-1"
                         style=" font-size: 12px; font-family: Verdana; background-color: white"
                             id="estado" placeholder="Ingrese sillas">
                         <div *ngIf="formRegistro.get('sillas')?.invalid && formRegistro.get('sillas')?.touched"
@@ -183,7 +183,7 @@
                             Sillas requeridas.
                         </div>
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Mesas:</label>
-                        <input type="text" formControlName="mesas" name="mesas" class="form-control border rounded-1"
+                        <input type="numbre" formControlName="mesas" name="mesas" class="form-control border rounded-1"
                         style=" font-size: 12px; font-family: Verdana; background-color: white"
                             id="estado" placeholder="Ingrese mesas">
                         <div *ngIf="formRegistro.get('mesas')?.invalid && formRegistro.get('mesas')?.touched"
@@ -229,21 +229,21 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="monitores"
                             style="font-size: 13px; font-family: Verdana; color: black;">Monitores:</label>
-                        <input type="text" [(ngModel)]="datoEditado.monitores" name="monitores"
+                        <input type="number" [(ngModel)]="datoEditado.monitores" name="monitores"
                             class="form-control border rounded-1" id="monitores"
                             placeholder="Ingrese la marca del monitor"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="cpu" style="font-size: 13px; font-family: Verdana; color: black;">CPU:</label>
-                        <input type="text" [(ngModel)]="datoEditado.cpu" name="cpu"
+                        <input type="number" [(ngModel)]="datoEditado.cpu" name="cpu"
                             class="form-control border rounded-1" id="cpu" placeholder="Ingrese la marca del CPU"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="teclado"
                             style="font-size: 13px; font-family: Verdana; color: black;">Teclado:</label>
-                        <input type="text" [(ngModel)]="datoEditado.teclado" name="teclado"
+                        <input type="number" [(ngModel)]="datoEditado.teclado" name="teclado"
                             class="form-control border rounded-1" id="teclado"
                             placeholder="Ingrese la marca del teclado"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
@@ -251,7 +251,7 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="audifonos"
                             style="font-size: 13px; font-family: Verdana; color: black;">Audifonos:</label>
-                        <input type="text" [(ngModel)]="datoEditado.audifonos" name="audifonos"
+                        <input type="number" [(ngModel)]="datoEditado.audifonos" name="audifonos"
                             class="form-control border rounded-1" id="audifonos"
                             placeholder="Ingrese la marca de los audifonos"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
@@ -259,25 +259,25 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="infocus"
                             style="font-size: 13px; font-family: Verdana; color: black;">Infocus:</label>
-                        <input type="text" [(ngModel)]="datoEditado.infocus" name="infocus"
+                        <input type="number" [(ngModel)]="datoEditado.infocus" name="infocus"
                             class="form-control border rounded-1" id="infocus"
                             placeholder="Ingrese la marca del infocus"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="mouse" style="font-size: 13px; font-family: Verdana; color: black;">Mouse:</label>
-                        <input type="text" [(ngModel)]="datoEditado.mouse" name="mouse"
+                        <input type="number" [(ngModel)]="datoEditado.mouse" name="mouse"
                             class="form-control border rounded-1" id="mouse" placeholder="Ingrese la marca del mouse"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="sillas" style="font-size: 13px; font-family: Verdana; color: black;">Sillas:</label>
-                        <input type="text" [(ngModel)]="datoEditado.sillas" name="sillas"
+                        <input type="number" [(ngModel)]="datoEditado.sillas" name="sillas"
                             class="form-control border rounded-1" id="sillas" placeholder="Ingrese el número de sillas"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="mesas" style="font-size: 13px; font-family: Verdana; color: black;">Mesas:</label>
+                        <label for="mnumber" style="font-size: 13px; font-family: Verdana; color: black;">Mesas:</label>
                         <input type="text" [(ngModel)]="datoEditado.mesas" name="mesas"
                             class="form-control border rounded-1" id="mesas" placeholder="Ingrese el número de mesas"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
