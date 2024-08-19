@@ -8,6 +8,8 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class EquipoService {
 
   private api = "/api/equipo";  
+  private apiUrl = "/api/laboratory";  
+
 
   constructor(private http: HttpClient) { }
 
@@ -23,6 +25,11 @@ export class EquipoService {
     return this.http.post<any>(this.api, data).pipe(
       catchError(this.handleError)
     );
+  }
+  
+
+  traerLaboratorios(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 
   // Manejo de errores genérico

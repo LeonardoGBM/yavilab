@@ -34,29 +34,25 @@ export function fechaDanioAntesDeFechaCambio(): ValidatorFn {
 export class ErroresComponent implements OnInit {
   filtro: string = '';
   data: any[] = [];
-  form: FormGroup;
-  datoEditado: any = { numero_serie: '', hora_dano: '', fecha_dano: '', fecha_cambio: '', descripcion: '', estado: '', laboratorio: '' };
+  numero: string = '';
+  horadano: string = '';
+  fechadano: string = '';
+  fechacambio: string = '';
+  descripcion: string = '';
+  lab: string = '';
+  datoEditado: any = { numero_serie: '', hora_dano: '', fecha_dano: '', fecha_cambio: '', descripcion: '', equipo:'', lab_nombre:'' };
   modoEdicion: boolean = false;
   dato: any;
-
-  constructor(private fb: FormBuilder, private traer: ErrorService) {
-    // Inicialización del formulario
-    this.form = this.fb.group({
-      numero_serie: ['', Validators.required],
-      hora_dano: ['', Validators.required],
-      fecha_dano: ['', Validators.required],
-      fecha_cambio: ['', Validators.required],
-      descripcion: ['', Validators.required],
-      estado: ['', Validators.required],
-      laboratorio: ['', Validators.required]
-    }, { validator: fechaDanioAntesDeFechaCambio() });
-  }
+  equipo: any = { id: 0 };
+  equipos: any[] = [];
+  constructor(private traer: ErrorService) { }
 
   ngOnInit(): void {
+    this.cargarLaboratorios(); // Cargar laboratorios al iniciar el componente
     this.traer.traer().subscribe({
       next: (data: any[]) => {
         this.data = data;
-        console.log('Datos recibidos:', this.data);
+        this.aplicarFiltro();
       },
       error: (error) => {
         console.error('Error al traer datos:', error);
@@ -64,25 +60,78 @@ export class ErroresComponent implements OnInit {
     });
   }
 
-  agregarDato() {
-    if (this.form.invalid) {
-      return; // Si el formulario es inválido, no enviar
+  cargarLaboratorios() {
+    this.traer.traerLaboratorios().subscribe({
+      next: (equipo: any[]) => {
+        this.equipos = equipo;
+      },
+      error: (error) => {
+        console.error('Error al cargar laboratorios:', error);
+      }
+    });
+  }
+  
+  actualizarNombreLab(event: any) {
+    const numeroId = event.target.value;
+    const labSeleccionado = this.equipos.find(numero => numero.id == numeroId);
+    if (labSeleccionado) {
+      this.lab = labSeleccionado.lab;
     }
+  }
 
-    const data = this.form.value;
-
-    this.traer.agregarDato(data).subscribe(response => {
-      console.log('Dato agregado', response);
-      this.form.reset(); // Limpiar el formulario después de agregar
+  
+  aplicarFiltro() {
+    if (this.filtro) {
+      this.data = this.data.filter((dato: any) =>
+        dato.laboratorio?.toLowerCase().includes(this.filtro.toLowerCase())
+      );
+    } else {
       this.traer.traer().subscribe({
         next: (data: any[]) => {
           this.data = data;
-          console.log('Datos actualizados:', this.data);
         },
         error: (error) => {
           console.error('Error al traer datos:', error);
         }
       });
+    }
+  }
+  agregarDato() {
+    const data = {
+      numero_serie: this.numero,
+      hora_dano: this.horadano,
+      fecha_dano: this.fechadano,
+      fecha_cambio: this.fechacambio,
+      descripcion: this.descripcion,
+      lab_nombre: this.lab,
+      equipo: { id: this.equipo.id }
+    };
+
+    console.log('Datos a enviar:', data); // Verifica los datos aquí
+
+    this.traer.agregarDato(data).subscribe({
+      next: (response) => {
+        console.log('Dato agregado', response);
+        this.numero = '';
+        this.horadano = '';
+        this.fechadano = '';
+        this.fechacambio = '';
+        this.descripcion = '';
+        this.lab = '';
+        this.equipo = { id: 0 };
+        this.traer.traer().subscribe({
+          next: (data: any[]) => {
+            this.data = data;
+            console.log('Datos actualizados:', this.data);
+          },
+          error: (error) => {
+            console.error('Error al traer datos:', error);
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error al agregar dato:', error);
+      }
     });
   }
 
@@ -102,25 +151,6 @@ export class ErroresComponent implements OnInit {
     }
   }
 
-  aplicarFiltro() {
-    if (this.filtro) {
-      this.data = this.data.filter((dato: any) =>
-        dato.numero_serie?.toLowerCase().includes(this.filtro.toLowerCase()) ||
-        dato.estado?.toLowerCase().includes(this.filtro.toLowerCase()) ||
-        dato.laboratorio?.toLowerCase().includes(this.filtro.toLowerCase())
-      );
-    } else {
-      this.traer.traer().subscribe({
-        next: (data: any[]) => {
-          this.data = data;
-        },
-        error: (error) => {
-          console.error('Error al traer datos:', error);
-        }
-      });
-    }
-  }
-
   editarDato(dato: any) {
     this.datoEditado = { ...dato };
     this.modoEdicion = true;
@@ -133,8 +163,7 @@ export class ErroresComponent implements OnInit {
       fecha_dano: this.datoEditado.fecha_dano,
       fecha_cambio: this.datoEditado.fecha_cambio,
       descripcion: this.datoEditado.descripcion,
-      estado: this.datoEditado.estado,
-      laboratorio: this.datoEditado.laboratorio
+      lab_nombre: this.datoEditado.lab_nombre
     };
 
     this.traer.editarDato(this.datoEditado.id, updatedData).subscribe({
@@ -181,7 +210,7 @@ export class ErroresComponent implements OnInit {
               'Equipo:',
               `El equipo con número de serie "${this.dato.numero_serie}" sufrió un daño el día "${this.dato.fecha_dano}" a las "${this.dato.hora_dano}" horas. El incidente fue identificado cuando se detectó el siguiente problema: "${this.dato.descripcion}".`,
               'Reparación:',
-              `La reparación del equipo se llevó a cabo el día "${this.dato.fecha_cambio}" en el laboratorio "${this.dato.laboratorio}". El proceso de reparación fue documentado cuidadosamente, y el equipo fue evaluado para asegurar que cumpla con los estándares operativos.`,
+              `La reparación del equipo se llevó a cabo el día "${this.dato.fecha_cambio}" en el laboratorio "${this.dato.equipo.lab}". El proceso de reparación fue documentado cuidadosamente, y el equipo fue evaluado para asegurar que cumpla con los estándares operativos.`,
               'Estado Actual:',
               `Después de la reparación, el equipo fue sometido a pruebas adicionales para confirmar su funcionalidad. Actualmente, el estado del equipo es: "${this.dato.estado}". Este estado refleja tanto la operatividad del equipo como las medidas preventivas tomadas para evitar futuros incidentes.`,
               'Conclusión:',
@@ -244,7 +273,7 @@ export class ErroresComponent implements OnInit {
               item.fecha_cambio,
               item.descripcion,
               item.estado,
-              item.laboratorio
+              item.equipo.lab
             ]),
           });
 
@@ -272,11 +301,10 @@ export class ErroresComponent implements OnInit {
       'Fecha cambio': item.fecha_cambio,
       'Descripción': item.descripcion,
       'Estado': item.estado,
-      'Laboratorio': item.laboratorio
+      'Laboratorio': item.equipo.lab
     })));
     const workbook: XLSX.WorkBook = { Sheets: { 'Informe de Daños': worksheet }, SheetNames: ['Informe de Daños'] };
     XLSX.writeFile(workbook, 'informe_completo_de_danos.xlsx');
   }
-
 
 }

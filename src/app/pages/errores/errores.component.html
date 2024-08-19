@@ -62,7 +62,7 @@
                             <td class="descripcion-scroll2">{{item.fecha_cambio}}</td>
                             <td class="descripcion-scroll">{{item.descripcion}}</td>
                             <td>{{item.estado}}</td>
-                            <td>{{item.laboratorio}}</td>
+                            <td>{{item.equipo.lab}}</td>
                             <td class="d-flex justify-content-center">
                                 <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
                                     data-bs-target="#editModal" style="margin-right: 20px; color: blue;"></i>
@@ -99,112 +99,87 @@
     </div>
 </div>
 
+
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdrop" aria-hidden="true">
-    <form [formGroup]="form" (ngSubmit)="agregarDato()">
+    <form (submit)="agregarDato()">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Daño</h1>
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Equipo</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group pt-0 mb-3">
-                        <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
-                            serie:</label>
-                        <input type="text" formControlName="numero_serie" class="form-control border rounded-1"
-                            id="numSerie" placeholder="Ingrese el numero de serie"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('numero_serie')?.invalid && form.get('numero_serie')?.touched"
-                            class="text-alert">
-                            Numero de serie es requerido.
-                        </div>
+                        <label for="labo"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Numero de serie:</label>
+                        <select [(ngModel)]="equipo.id" name="numeroid" id="numeroid"
+                            class="form-control border rounded-1"
+                            style="font-size: 12px; font-family: Verdana; background-color: white"
+                            (change)="actualizarNombreLab($event)">
+                            <option *ngFor="let lab of equipos" [value]="lab.id">{{ lab.numero_serie }}</option>
+                        </select>
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="hora" style="font-size: 13px; font-family: Verdana; color: black;">Hora de
-                            daños:</label>
-                        <input type="time" formControlName="hora_dano" class="form-control border rounded-1" id="hora"
-                            placeholder="Ingrese la hora"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('horadano')?.invalid && form.get('horadano')?.touched" class="text-alert">
-                            Hora de daño es requerida.
-                        </div>
+                        <label for="labo"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Numero de serie:</label>
+                        <select [(ngModel)]="numero" name="numero" id="numero"
+                            class="form-control border rounded-1"
+                            style="font-size: 12px; font-family: Verdana; background-color: white">
+                            <option *ngFor="let numero of equipos">{{ numero.numero_serie }}</option>
+                        </select>
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="fecha" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
-                            daños:</label>
-                        <input type="date" formControlName="fecha_dano" class="form-control border rounded-1" id="fecha"
-                            placeholder="Ingrese la fecha de daño"
+                        <label for="desEquipo" style="font-size: 13px; font-family: Verdana; color: black;">Hora del
+                            daño:</label>
+                        <input type="time" [(ngModel)]="horadano" name="horadano" id="horadano"
+                            class="form-control border rounded-1" placeholder="Ingrese la descripción del equipo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('fechadano')?.invalid && form.get('fechadano')?.touched"
-                            class="text-alert">
-                            Fecha de daño es requerida.
-                        </div>
+
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="fechaCambio" style="font-size: 13px; font-family: Verdana; color: black;">Fecha de
+                        <label for="marca" style="font-size: 13px; font-family: Verdana; color: black;">Fecha del
+                            daño:</label>
+                        <input type="date" [(ngModel)]="fechadano" name="fechadano" id="fechadano"
+                            class="form-control border rounded-1" placeholder="Ingrese la marca"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="modelo" style="font-size: 13px; font-family: Verdana; color: black;">Fecha del
                             cambio:</label>
-                        <input type="date" formControlName="fecha_cambio" class="form-control border rounded-1"
-                            id="fechaCambio" placeholder="Ingrese la fecha de cambio"
+                        <input type="date" [(ngModel)]="fechacambio" name="fechacambio" id="fechacambio"
+                            class="form-control border rounded-1" placeholder="Ingrese el modelo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('fechacambio')?.invalid && form.get('fechacambio')?.touched"
-                            class="text-alert">
-                            Fecha de cambio es requerida.
-                        </div>
-                    </div>
 
-                    <div *ngIf="form.errors?.['fechaDanioPosterior']" class="text-alert">
-                        La fecha de cambio no puede ser inferior a la fecha de daño.
                     </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="estado"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Descripcion:</label>
+                        <input type="text" [(ngModel)]="descripcion" name="descripcion" id="desEquipo"
+                            class="form-control border rounded-1" placeholder="Ingrese la descripción del equipo"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
 
-                    <div class="form-group pt-0 mb-3">
-                        <label for="descripcion"
-                            style="font-size: 13px; font-family: Verdana; color: black;">Descripción:</label>
-                        <input type="text" formControlName="descripcion" class="form-control border rounded-1"
-                            id="descripcion" placeholder="Ingrese la descripción"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="form.get('descripcion')?.invalid && form.get('descripcion')?.touched"
-                            class="text-alert">
-                            Descripción es requerida.
-                        </div>
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <select formControlName="estado" id="estado" class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Funcional</option>
-                            <option>Arreglado</option>
-                        </select>
-                        <div *ngIf="form.get('estado')?.invalid && form.get('estado')?.touched" class="text-alert">
-                            Estado es requerido.
-                        </div>
-                    </div>
-                    <div class="form-group pt-0 mb-3">
-                        <label for="equipo"
+                        <label for="lab"
                             style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
-                        <select formControlName="laboratorio" id="laboratorio" class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Xian</option>
-                            <option>Gori</option>
-                            <option>Toolose</option>
-                            <option>Cenepa</option>
-                            <option>Sarasota</option>
-                        </select>
-                        <div *ngIf="form.get('laboratorio')?.invalid && form.get('laboratorio')?.touched"
-                            class="text-alert">
-                            Laboratorio es requerido.
-                        </div>
+                            <input type="text" [(ngModel)]="lab" name="serie" id="serie"
+                            class="form-control border rounded-1" placeholder="Laboratorio seleccionado"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Añadir</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
                 </div>
             </div>
         </div>
     </form>
 </div>
+
+
 <!-- Editar -->
 
 <div class="modal fade" id="editModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -255,28 +230,13 @@
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
-                        <label for="Laboratorio"
-                            style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <select [(ngModel)]="datoEditado.estado" name="estado" id="estado"
-                            class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Funcional</option>
-                            <option>Arreglado</option>
-                        </select>
-                    </div>
-                    <div class="form-group pt-0 mb-3">
-                        <label for="Laboratorio"
+                        <label for="mouse"
                             style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
-                        <select [(ngModel)]="datoEditado.laboratorio" name="laboratorio" id="laboratorio"
-                            class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Xian</option>
-                            <option>Gori</option>
-                            <option>Toolose</option>
-                            <option>Cenepa</option>
-                            <option>Sarasota</option>
-                        </select>
+                        <input type="text" [(ngModel)]="datoEditado.lab_nombre" name="lab"
+                            class="form-control border rounded-1" id="mouse" placeholder="Ingrese la marca del mouse"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white" readonly>
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

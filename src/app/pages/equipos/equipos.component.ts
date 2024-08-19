@@ -20,23 +20,20 @@ export class EquiposComponent implements OnInit {
   filtro: string = '';
   data: any[] = [];
   modoEdicion: boolean = false;
-  datoEditado: any = { id: null, numero_serie: '', descripcion_equipo: '', marca: '', modelo: '', estado: '', laboratorio: ''};
+  datoEditado: any = { id: null, numero_serie: '', descripcion_equipo: '', marca: '', modelo: '', estado: '', lab: '', laboratorio:'' };
   dato: any;
-  formRegistro: FormGroup;
-
-  constructor(private traer: EquipoService, private fb: FormBuilder) {
-    // Inicialización del formulario con validaciones
-    this.formRegistro = this.fb.group({
-      numero_serie: ['', Validators.required],
-      descripcion_equipo: ['', Validators.required],
-      marca: ['', Validators.required],
-      modelo: ['', Validators.required],
-      estado: ['', Validators.required],
-      laboratorio: ['', Validators.required]
-    });
-  }
+  numero: string = '';
+  descripcion: string = '';
+  marca: string = '';
+  modelo: string = '';
+  estado: string = '';
+  lab: string = '';
+  laboratorio: any = { id: 0 };
+  laboratorios: any[] = [];
+  constructor(private traer: EquipoService) { }
 
   ngOnInit(): void {
+    this.cargarLaboratorios(); // Cargar laboratorios al iniciar el componente
     this.traer.traer().subscribe({
       next: (data: any[]) => {
         this.data = data;
@@ -48,6 +45,33 @@ export class EquiposComponent implements OnInit {
     });
   }
 
+  cargarLaboratorios() {
+    this.traer.traerLaboratorios().subscribe({
+      next: (laboratorio: any[]) => {
+        this.laboratorios = laboratorio;
+      },
+      error: (error) => {
+        console.error('Error al cargar laboratorios:', error);
+      }
+    });
+  }
+
+  actualizarNombreLab(event: any) {
+    const labId = event.target.value;
+    const labSeleccionado = this.laboratorios.find(lab => lab.id == labId);
+    if (labSeleccionado) {
+      this.lab = labSeleccionado.nombre_lab;
+    }
+  }
+
+  actualizarLab(event: any) {
+    const selectedLabId = event.target.value;
+    const selectedLab = this.laboratorios.find(lab => lab.id === parseInt(selectedLabId, 10));
+    if (selectedLab) {
+      this.datoEditado.lab = selectedLab.nombre_lab; // Actualiza el nombre del laboratorio
+      this.datoEditado.laboratorio.id = selectedLab.id; // Asegura que también actualizas el ID del laboratorio
+    }
+  }
 
   aplicarFiltro() {
     if (this.filtro) {
@@ -65,26 +89,42 @@ export class EquiposComponent implements OnInit {
       });
     }
   }
-
   agregarDato() {
-    if (this.formRegistro.invalid) {
-      return; // Si el formulario es inválido, no enviar
-    }
+    const data = {
+      numero_serie: this.numero,
+      descripcion_equipo: this.descripcion,
+      marca: this.marca,
+      modelo: this.modelo,
+      estado: this.estado,
+      lab: this.lab,
+      laboratorio: { id: this.laboratorio.id }
+    };
 
-    const data = this.formRegistro.value;
+    console.log('Datos a enviar:', data); // Verifica los datos aquí
 
-    this.traer.agregarDato(data).subscribe(response => {
-      console.log('Dato agregado', response);
-      this.formRegistro.reset(); // Limpiar el formulario después de agregar
-      this.traer.traer().subscribe({
-        next: (data: any[]) => {
-          this.data = data;
-          console.log('Datos actualizados:', this.data);
-        },
-        error: (error) => {
-          console.error('Error al traer datos:', error);
-        }
-      });
+    this.traer.agregarDato(data).subscribe({
+      next: (response) => {
+        console.log('Dato agregado', response);
+        this.numero = '';
+        this.descripcion = '';
+        this.marca = '';
+        this.modelo = '';
+        this.estado = '';
+        this.lab = '';
+        this.laboratorio = { id: 0 };
+        this.traer.traer().subscribe({
+          next: (data: any[]) => {
+            this.data = data;
+            console.log('Datos actualizados:', this.data);
+          },
+          error: (error) => {
+            console.error('Error al traer datos:', error);
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Error al agregar dato:', error);
+      }
     });
   }
 
@@ -106,7 +146,6 @@ export class EquiposComponent implements OnInit {
 
   editarDato(dato: any) {
     this.datoEditado = { ...dato };
-    this.formRegistro.patchValue(this.datoEditado);
     this.modoEdicion = true;
   }
 
@@ -117,7 +156,9 @@ export class EquiposComponent implements OnInit {
       marca: this.datoEditado.marca,
       modelo: this.datoEditado.modelo,
       estado: this.datoEditado.estado,
+      lab: this.datoEditado.lab,
       laboratorio: this.datoEditado.laboratorio,
+
     };
 
     this.traer.editarDato(this.datoEditado.id, updatedData).subscribe({
@@ -169,7 +210,7 @@ export class EquiposComponent implements OnInit {
               item.marca,
               item.modelo,
               item.estado,
-              item.laboratorio
+              item.laboratorio.nombre_lab
             ]),
           });
 
@@ -196,7 +237,7 @@ export class EquiposComponent implements OnInit {
       'Marca': item.marca,
       'Modelo': item.modelo,
       'Estado': item.estado,
-      'Laboratorio': item.laboratorio
+      'Laboratorio': item.laboratorio.nombre_lab
     })));
     const workbook: XLSX.WorkBook = { Sheets: { 'Informe de Daños': worksheet }, SheetNames: ['Informe de Daños'] };
     XLSX.writeFile(workbook, 'informe_completo_de_danos.xlsx');

@@ -9,6 +9,7 @@ export class ErrorService {
   private api = "/api/damage";  
   private equipoApi = "/api/equipo";  // Asume que esta es la URL para la API de equipos
 
+
   constructor(private http: HttpClient) { }
 
   // Traer datos
@@ -34,7 +35,9 @@ export class ErrorService {
     );
   }
   
-  
+  traerLaboratorios(): Observable<any[]> {
+    return this.http.get<any[]>(this.equipoApi);
+  }
 
   // Eliminar datos
   eliminar(id: number): Observable<any> {

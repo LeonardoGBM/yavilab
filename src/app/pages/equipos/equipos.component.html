@@ -13,7 +13,8 @@
             <div class="col-md-11 pt-4 pb-4 d-flex justify-content-between rounded-4 shadow-sm"
                 style="background-color: rgba(14, 122, 255, 0.2);">
                 <div class="position-relative" style="width: 300px; margin-left: 20px;">
-                    <input type="text"  [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()" class="form-control" placeholder="Filtros" style="padding-right: 30px;">
+                    <input type="text" [(ngModel)]="filtro" (ngModelChange)="aplicarFiltro()" class="form-control"
+                        placeholder="Filtros" style="padding-right: 30px;">
                     <i class="bi bi-funnel position-absolute"
                         style="top: 50%; right: 10px; transform: translateY(-50%);"></i>
                 </div>
@@ -24,7 +25,7 @@
                     </button>
                 </div>
                 <div>
-                    <button type="button" class="excel-button" (click)="generarExcelCompleto()" >
+                    <button type="button" class="excel-button" (click)="generarExcelCompleto()">
                         <i class="bi bi-file-excel"></i>
                         Descargar Excel
                     </button>
@@ -59,7 +60,7 @@
                             <td>{{ item.marca }}</td>
                             <td>{{ item.modelo }}</td>
                             <td>{{ item.estado }}</td>
-                            <td>{{ item.laboratorio}}</td>
+                            <td>{{ item.laboratorio.nombre_lab }}</td>
                             <td class="d-flex justify-content-center">
                                 <i class="bi bi-pencil-square" (click)="editarDato(item)" data-bs-toggle="modal"
                                     data-bs-target="#editModal" style="margin-right: 40px; color: blue;"></i>
@@ -95,8 +96,8 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <form [formGroup]="formRegistro" (ngSubmit)="agregarDato()">
+    aria-labelledby="staticBackdrop" aria-hidden="true">
+    <form (submit)="agregarDato()">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -107,78 +108,63 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="numSerie" style="font-size: 13px; font-family: Verdana; color: black;">Numero de
                             serie:</label>
-                        <input type="number" formControlName="numero_serie" id="numSerie"
+                        <input type="number" [(ngModel)]="numero" name="numero" id="numSerie"
                             class="form-control border rounded-1" placeholder="Ingrese el numero de serie"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="formRegistro.get('numero_serie')?.invalid && formRegistro.get('numero_serie')?.touched"
-                            class="text-alert">
-                            Número de serie es requerido.
-                        </div>
+
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="desEquipo" style="font-size: 13px; font-family: Verdana; color: black;">Descripción
                             del equipo:</label>
-                        <input type="text" formControlName="descripcion_equipo" id="desEquipo"
+                        <input type="text" [(ngModel)]="descripcion" name="descripcion" id="desEquipo"
                             class="form-control border rounded-1" placeholder="Ingrese la descripción del equipo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="formRegistro.get('descripcion_equipo')?.invalid && formRegistro.get('descripcion_equipo')?.touched"
-                            class="text-alert">
-                            Descripción del equipo es requerido.
-                        </div>
+
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="marca" style="font-size: 13px; font-family: Verdana; color: black;">Marca:</label>
-                        <input type="text" formControlName="marca" id="marca" class="form-control border rounded-1"
-                            placeholder="Ingrese la marca"
+                        <input type="text" [(ngModel)]="marca" name="marca" id="marca"
+                            class="form-control border rounded-1" placeholder="Ingrese la marca"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="formRegistro.get('marca')?.invalid && formRegistro.get('marca')?.touched"
-                            class="text-alert">
-                            Marca es requerida.
-                        </div>
+
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="modelo" style="font-size: 13px; font-family: Verdana; color: black;">Modelo:</label>
-                        <input type="text" formControlName="modelo" id="modelo" class="form-control border rounded-1"
-                            placeholder="Ingrese el modelo"
+                        <input type="text" [(ngModel)]="modelo" name="modelo" id="modelo"
+                            class="form-control border rounded-1" placeholder="Ingrese el modelo"
                             style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <div *ngIf="formRegistro.get('modelo')?.invalid && formRegistro.get('modelo')?.touched"
-                            class="text-alert">
-                            Modelo es requerido.
-                        </div>
+
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <select formControlName="estado" name="estado" id="estado"
-                        class="form-control border rounded-1"
-                        style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <option>Funcional</option>
-                        <option>Arreglado</option>
-                    </select>
-                        <div *ngIf="formRegistro.get('estado')?.invalid && formRegistro.get('estado')?.touched"
-                            class="text-alert">
-                            Estado es requerido.
-                        </div>
+                        <select [(ngModel)]="estado" name="estado" id="estado" class="form-control border rounded-1"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option>Funcional</option>
+                            <option>Arreglado</option>
+                        </select>
+
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="labo"
                             style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
-                        <select formControlName="laboratorio" id="laboratorio" class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Xian</option>
-                            <option>Gori</option>
-                            <option>Toolose</option>
-                            <option>Cenepa</option>
-                            <option>Sarasota</option>
+                        <select [(ngModel)]="laboratorio.id" name="laboratorio" id="laboratorio"
+                            class="form-control border rounded-1"
+                            style="font-size: 12px; font-family: Verdana; background-color: white"
+                            (change)="actualizarNombreLab($event)">
+                            <option *ngFor="let lab of laboratorios" [value]="lab.id">{{ lab.nombre_lab }}</option>
                         </select>
-                        <div *ngIf="formRegistro.get('laboratorio')?.invalid && formRegistro.get('laboratorio')?.touched"
-                            class="text-alert">
-                            Laboratorio es requerido.
-                        </div>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="lab"
+                            style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
+                        <input type="text" [(ngModel)]="lab" name="lab" id="lab" class="form-control border rounded-1"
+                            placeholder="Laboratorio seleccionado"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-primary" [disabled]="formRegistro.invalid">Añadir</button>
+                    <button type="submit" class="btn btn-primary">Añadir</button>
                 </div>
             </div>
         </div>
@@ -227,24 +213,28 @@
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
                         <select [(ngModel)]="datoEditado.estado" name="estado" id="estado"
-                        class="form-control border rounded-1"
-                        style=" font-size: 12px; font-family: Verdana; background-color: white">
-                        <option>Funcional</option>
-                        <option>Arreglado</option>
-                    </select>
+                            class="form-control border rounded-1"
+                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            <option>Funcional</option>
+                            <option>Arreglado</option>
+                        </select>
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado"
                             style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio:</label>
-                        <select [(ngModel)]="datoEditado.laboratorio" name="laboratorio" id="laboratorio"
+                        <select [(ngModel)]="datoEditado.laboratorio.id" name="laboratorio" id="laboratorio"
                             class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Xian</option>
-                            <option>Gori</option>
-                            <option>Toolose</option>
-                            <option>Cenepa</option>
-                            <option>Sarasota</option>
+                            style="font-size: 12px; font-family: Verdana; background-color: white"
+                            (change)="actualizarLab($event)">
+                            <option *ngFor="let lab of laboratorios" [value]="lab.id">{{ lab.nombre_lab }}</option>
                         </select>
+                    </div>
+                    <div class="form-group pt-0 mb-3">
+                        <label for="lab" style="font-size: 13px; font-family: Verdana; color: black;">Laboratorio
+                            actualizado:</label>
+                        <input type="text" [(ngModel)]="datoEditado.lab" name="lab" id="lab"
+                            class="form-control border rounded-1" placeholder="Laboratorio seleccionado"
+                            style="font-size: 12px; font-family: Verdana; background-color: white" readonly>
                     </div>
                 </div>
                 <div class="modal-footer">
