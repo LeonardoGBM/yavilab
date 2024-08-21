@@ -16,7 +16,7 @@ export class LaboratoriosComponent implements OnInit {
   data: any[] = [];
   modoEdicion: boolean = false;
   datoEditado: any = { id: null, nombre_lab: '', monitores: '', cpu: '', teclado: '', audifonos: '', infocus: '', mouse: '', sillas: '', mesas: '', observaciones: '' };
-  maxDataCount: number = 5;
+  maxDataCount: number = 3;
   // Definición del formulario
   formRegistro: FormGroup;
 
@@ -40,7 +40,7 @@ export class LaboratoriosComponent implements OnInit {
   ngOnInit(): void {
     this.traer.traer().subscribe({
       next: (data: any[]) => {
-        this.data = data.slice(0, 5);
+        this.data = data.slice(0, 3);
         this.aplicarFiltro();
       },
       error: (error) => {
@@ -71,7 +71,7 @@ export class LaboratoriosComponent implements OnInit {
     }
 
     if (this.data.length >= this.maxDataCount) {
-      alert('No se pueden agregar más de 5 laboratorios.');
+      alert('No se pueden agregar más de 3 laboratorios.');
       return;
     }
 

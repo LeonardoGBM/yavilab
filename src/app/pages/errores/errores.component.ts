@@ -84,6 +84,14 @@ export class ErroresComponent implements OnInit {
       this.lab = labSeleccionado.lab;
     }
   }
+
+  actualizarDes(event: any) {
+    const descripcionId = event.target.value;
+    const labSeleccionado = this.equipos.find(descripcion => descripcion.id == descripcionId);
+    if (labSeleccionado) {
+      this.descripcion = labSeleccionado.descripcion_equipo;
+    }
+  }
   actualizarMaxFechaDanio() {
     const fechaCambioInput = document.getElementById('fechacambio') as HTMLInputElement;
     this.maxFechaDanio = fechaCambioInput.value;

@@ -125,9 +125,9 @@
                         <label for="labo"
                             style="font-size: 13px; font-family: Verdana; color: black;">Numero de serie:</label>
                         <select [(ngModel)]="numero" name="numeros" id="numeros"
-                            class="form-control border rounded-1"
-                            style="font-size: 12px; font-family: Verdana; background-color: white">
-                            <option *ngFor="let numero of equipos">{{ numero.numero_serie }}</option>
+                            class="form-control border rounded-1" placeholder="Confirme el numero de serie"
+                            style="font-size: 12px; font-family: Verdana; background-color: white" >
+                            <option *ngFor="let descripcion of equipos">{{ descripcion.numero_serie }}</option>
                         </select>
                     </div>
                     <div class="form-group pt-0 mb-3">
@@ -158,16 +158,14 @@
                             style="font-size: 13px; font-family: Verdana; color: black;">Descripcion:</label>
                         <input type="text" [(ngModel)]="descripcion" name="descripcion" id="desEquipo"
                             class="form-control border rounded-1" placeholder="Ingrese la descripción del equipo"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
+                            style=" font-size: 12px; font-family: Verdana; background-color: white" readonly>
 
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <select [(ngModel)]="estado" name="estado" id="estado" class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Funcional</option>
-                            <option>Arreglado</option>
-                        </select>
+                        <input type="text" [(ngModel)]="estado" name="estado" id="estado"
+                        class="form-control border rounded-1" placeholder="Ingrese el estado del equipo"
+                        style=" font-size: 12px; font-family: Verdana; background-color: white">
 
                     </div>
                     <div class="form-group pt-0 mb-3">
@@ -239,12 +237,9 @@
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="estado" style="font-size: 13px; font-family: Verdana; color: black;">Estado:</label>
-                        <select [(ngModel)]="datoEditado.estado" name="estado" id="estado"
-                            class="form-control border rounded-1"
-                            style=" font-size: 12px; font-family: Verdana; background-color: white">
-                            <option>Funcional</option>
-                            <option>Arreglado</option>
-                        </select>
+                        <input type="text" [(ngModel)]="datoEditado.estado" name="estado"
+                        class="form-control border rounded-1" id="mouse" placeholder="Ingrese la marca del mouse"
+                        style=" font-size: 12px; font-family: Verdana; background-color: white">
                     </div>
                     <div class="form-group pt-0 mb-3">
                         <label for="mouse"
